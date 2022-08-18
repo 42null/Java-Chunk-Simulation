@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
-public class BoardAndButtonsGameDisplay implements ActionListener {
+public class TileIsChunk implements ActionListener {
 
     int width = 15;
 
@@ -35,8 +35,9 @@ public class BoardAndButtonsGameDisplay implements ActionListener {
 
 
     MineButton[] _buttonArray;
+    Chunk[] chunks;
 
-    BoardAndButtonsGameDisplay() {
+    TileIsChunk() {
 
         JFXPanel jfxPanel = new JFXPanel();
 //        final Image PIZZA = new Image("http://icons.iconarchive.com/icons/aha-soft/desktop-buffet/128/Pizza-icon.png");
@@ -48,22 +49,16 @@ public class BoardAndButtonsGameDisplay implements ActionListener {
 //            System.out.println("Look and Feel not set");
 //        }
 
-        gameBoardFrame = new JFrame("Chunks");
+        gameBoardFrame = new JFrame("Tile is Chunk");
         t1 = new JTextField("");
 
 
         MineButton testMineButton = new MineButton("TEST");
-//        testMineButton.updateImages(PIZZA,CAKE);
-
-
-
-//        JCheckBox chk_togFace = new JCheckBox("Toggle Face Detection");
-//        l = new JLabel("new JLabel");
 
 //        GENERATE BUTTONS FROM LIST
         String[] buttonStringArray = new String[width*width];
         _buttonArray = new MineButton[buttonStringArray.length];
-//        ArrayList<String> buttonStringTempList = new ArrayList<String>();
+        chunks = new Chunk[buttonStringArray.length];
 
         for(int i=0; i<buttonStringArray.length; i++){//CREATE STRINGS TO LATER TURN INTO BUTTONS
             buttonStringArray[i] = i+"";
@@ -75,6 +70,7 @@ public class BoardAndButtonsGameDisplay implements ActionListener {
             tmpButton.setBackground(Defaults.STARTING_COLOR);
             tmpButton.setText(i+"");
             _buttonArray[i] = tmpButton;
+            chunks[i] = new Chunk();
         }
 
 
@@ -96,23 +92,6 @@ public class BoardAndButtonsGameDisplay implements ActionListener {
 //            tmpButton.hashCode();
             gameBoardFrame.add(tmpButton);
         }
-
-        _buttonArray[1*width+0].setText("<-");
-        _buttonArray[1*width+0].setBackground(Color.cyan);
-        _buttonArray[0*width+1].setText("^");
-        _buttonArray[0*width+1].setBackground(Color.cyan);
-        _buttonArray[2*width+1].setText("v");
-        _buttonArray[2*width+1].setBackground(Color.cyan);
-        _buttonArray[1*width+2].setText("->");
-        _buttonArray[1*width+2].setBackground(Color.cyan);
-        _buttonArray[1*width+1].setText("T");
-        _buttonArray[1*width+1].setBackground(Color.gray);
-//        _buttonArray[1*width+1].setText("");
-//        _buttonArray[1*width+1].setBackground(Color.cyan);
-//        _buttonArray[1*width+2].setText("");
-//        _buttonArray[1*width+2].setBackground(Color.cyan);
-//        _buttonArray[1*width+3].setText("");
-//        _buttonArray[1*width+3].setBackground(Color.cyan);
 
 
 //        chk_togFace.addActionListener(this);

@@ -4,7 +4,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        BoardAndButtons displayBoard = new BoardAndButtons();
+        UIControls game = new UIControls();
+
+        TileIsChunk chunkDisplay = new TileIsChunk();
+//        BoardAndButtons tileDisplay = new BoardAndButtons();
 //        System.out.println(IsKeyPressed.isWPressed());
 
     }

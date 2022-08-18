@@ -3,7 +3,7 @@ package com.company;
 import java.awt.*;
 
 public class Chunk {
-    short CHUNK_WIDTH = 50;
+    short CHUNK_WIDTH = 5;
 
     MineButton[][] playTiles = new MineButton[CHUNK_WIDTH][CHUNK_WIDTH];//contained space?
 

@@ -52,7 +52,7 @@ public class BoardAndButtons implements ActionListener {
 //            System.out.println("Look and Feel not set");
 //        }
 
-        gameBoardFrame = new JFrame("Chunks");
+        gameBoardFrame = new JFrame("Tile Display");
         t1 = new JTextField("");
 
 
@@ -101,22 +101,6 @@ public class BoardAndButtons implements ActionListener {
             gameBoardFrame.add(tmpButton);
         }
 
-        _buttonArray[1*width+0].setText("<-");
-        _buttonArray[1*width+0].setBackground(Color.cyan);
-        _buttonArray[0*width+1].setText("^");
-        _buttonArray[0*width+1].setBackground(Color.cyan);
-        _buttonArray[2*width+1].setText("v");
-        _buttonArray[2*width+1].setBackground(Color.cyan);
-        _buttonArray[1*width+2].setText("->");
-        _buttonArray[1*width+2].setBackground(Color.cyan);
-        _buttonArray[1*width+1].setText("T");
-        _buttonArray[1*width+1].setBackground(Color.gray);
-//        _buttonArray[1*width+1].setText("");
-//        _buttonArray[1*width+1].setBackground(Color.cyan);
-//        _buttonArray[1*width+2].setText("");
-//        _buttonArray[1*width+2].setBackground(Color.cyan);
-//        _buttonArray[1*width+3].setText("");
-//        _buttonArray[1*width+3].setBackground(Color.cyan);
 
 
 //        chk_togFace.addActionListener(this);
