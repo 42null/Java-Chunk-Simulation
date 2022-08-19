@@ -7,9 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.*;
 
 import javafx.embed.swing.JFXPanel;
-import javafx.scene.image.Image;
 
-import javax.swing.UIManager;
 import javax.swing.JFrame;
 
 public class BoardAndButtons implements ActionListener {
@@ -38,7 +36,7 @@ public class BoardAndButtons implements ActionListener {
     public int num_frameColor = 0;
 
 
-    MineButton[] _buttonArray;
+    Tile[] _buttonArray;
 
     BoardAndButtons() {
 
@@ -56,7 +54,7 @@ public class BoardAndButtons implements ActionListener {
         t1 = new JTextField("");
 
 
-        MineButton testMineButton = new MineButton("TEST");
+        Tile testTile = new Tile("TEST");
 //        testMineButton.updateImages(PIZZA,CAKE);
 
 
@@ -66,14 +64,14 @@ public class BoardAndButtons implements ActionListener {
 
 //        GENERATE BUTTONS FROM LIST
         String[] buttonStringArray = new String[width*width];
-        _buttonArray = new MineButton[buttonStringArray.length];
+        _buttonArray = new Tile[buttonStringArray.length];
 //        ArrayList<String> buttonStringTempList = new ArrayList<String>();
 
         for(int i=0; i<buttonStringArray.length; i++){//CREATE STRINGS TO LATER TURN INTO BUTTONS
             buttonStringArray[i] = i+"";
         }
         for(int i = 0; i< _buttonArray.length; i++){//USE STRINGS TO TURN INTO BUTTONS
-            MineButton tmpButton = new MineButton(buttonStringArray[i]);
+            Tile tmpButton = new Tile(buttonStringArray[i]);
 //            tmpButton.setPreferredSize(new Dimension(70,70));
             tmpButton.setPreferredSize(new Dimension(60,60));
             tmpButton.setBackground(Defaults.STARTING_COLOR);
@@ -91,7 +89,7 @@ public class BoardAndButtons implements ActionListener {
 
 //      ADD ALL BUTTONS TO FRAME
         for (int i = 0; i < _buttonArray.length; i++) {
-            MineButton tmpButton = _buttonArray[i];
+            Tile tmpButton = _buttonArray[i];
             tmpButton.addActionListener(this);
 //            tmpButton.setAction();
 //            tmpButton.updateImages(PIZZA,CAKE);
@@ -177,7 +175,7 @@ public class BoardAndButtons implements ActionListener {
         return true;
     }
 
-    private void addTileToProcessing(MineButton tile){
+    private void addTileToProcessing(Tile tile){
         Integer valueToAdd = Integer.valueOf(tile.getText());
         try{
             entityTiles.removeFirstOccurrence(valueToAdd);
@@ -202,11 +200,12 @@ public class BoardAndButtons implements ActionListener {
 //        public void actionPerformed(ActionEvent e) {
 //        String s = e.getID()+"";// getActionCommand();
         String source = e.getSource().toString();
+//        System.out.println(this.getClass() + "   :   "+source);
         int boxNumber = Integer.parseInt(source.substring("com.company.MineButton[".length(),source.indexOf(',')));
 //        l.setText(s);
         System.out.println("User clicked '" + boxNumber + "'");
 
-        MineButton selectedButton = _buttonArray[boxNumber];
+        Tile selectedButton = _buttonArray[boxNumber];
         System.out.println("X = "+boxNumber % width);//X
         System.out.println("Y = "+boxNumber / width);//Y
 

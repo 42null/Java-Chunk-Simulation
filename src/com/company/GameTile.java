@@ -8,38 +8,32 @@ import javafx.scene.input.MouseEvent;
 import javax.swing.*;
 import java.awt.*;
 
-public class MineButton extends JButton{
+public class GameTile extends JButton{
     private String _name;
     private int _toggleStageSelected = 0;//0 = default
     private Color _color = Defaults.STARTING_COLOR;
     public Color getColor(){return _color;}
 
-    public MineButton(String name_) {
+    public GameTile(String name_) {
         this._name = name_;
         this.setName(_name);
     }
 
+    /**
+     * Runs a random tick operation on the current tile and loads any necessary chunks
+     * @return if there has been a visual change
+     */
+    public boolean randomTick(){
+        this._color = this._color.darker();
+        this.setBackground(_color);
+        return true;
+    }
+
+
+
     public int getPosistion(){
 //        return this.posistion;
         return -1;
-    }
-
-    public void updateImages(final Image selected, final Image unselected) {
-
-        final ImageView iv = new ImageView(selected);
-//        this.getChildren().add(iv);
-
-        iv.setOnMousePressed(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent evt) {
-                iv.setImage(unselected);
-            }
-        });
-        iv.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent evt) {
-                iv.setImage(selected);
-            }
-        });
-//        super.setGraphic(iv);
     }
 
     public void updateState(int state){
