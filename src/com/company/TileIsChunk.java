@@ -26,21 +26,9 @@ public class TileIsChunk implements ActionListener {
     TileIsChunk(int gameNumOfTilesWidth) {
         this.gameNumOfTilesWidth = gameNumOfTilesWidth;
 
-        JFXPanel jfxPanel = new JFXPanel();
-//        final Image PIZZA = new Image("http://icons.iconarchive.com/icons/aha-soft/desktop-buffet/128/Pizza-icon.png");
-//        final Image CAKE = new Image("http://icons.iconarchive.com/icons/aha-soft/desktop-buffet/128/Piece-of-cake-icon.png");
-//        try {
-////            UIManager.setLookAndFeel(UIManager.getLookAndFeel());
-//            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-//        } catch (Exception e) {
-//            System.out.println("Look and Feel not set");
-//        }
-
         gameChunkFrame = new JFrame("Tile is Chunk");
         t1 = new JTextField("");
 
-
-        Tile testTile = new Tile("TEST");
 
 //        GENERATE BUTTONS FROM LIST
         String[] buttonStringArray = new String[this.gameNumOfTilesWidth * this.gameNumOfTilesWidth];
@@ -57,7 +45,7 @@ public class TileIsChunk implements ActionListener {
             tmpButton.setBackground(Defaults.STARTING_COLOR);
             tmpButton.setText(i+"");
             tileArray[i] = tmpButton;
-            chunks[i] = new Chunk();
+            chunks[i] = new Chunk(Color.GREEN);
         }
 
 
@@ -109,6 +97,7 @@ public class TileIsChunk implements ActionListener {
             e.printStackTrace();
         }
         tile.setBackground(Color.orange);
+        chunks[Integer.parseInt(tile.getText())].setAllChunkColor(Color.cyan);
         lazyChunks.add(valueToAdd);
         recalculateChunkLayers();
     }
