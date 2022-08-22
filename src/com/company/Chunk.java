@@ -4,27 +4,30 @@ import java.awt.*;
 
 public class Chunk{
 
-    public static final short CHUNK_WIDTH = 5;
+    public static final short chunkWidthForDimensions = 15;
 
-    GameTile[][] playTiles = new GameTile[CHUNK_WIDTH][CHUNK_WIDTH];//contained space?
+    GameTile[][] playTiles;
 
-    public Chunk(){
+    public Chunk(short chunkWidth){
+        playTiles = new GameTile[chunkWidth][chunkWidth];
         for(int i = 0; i < playTiles.length; i++){
             for (int j = 0; j < playTiles[0].length; j++){//Switch to playTiles.length for efficiency as always square
 //                playTiles[i][j] = new GameTile(i*playTiles[0].length+j*playTiles[0].length+"");
                 playTiles[i][j] = new GameTile("1");
-                playTiles[i][j].setPreferredSize(new Dimension(20,20));
+                playTiles[i][j].setPreferredSize(new Dimension(chunkWidthForDimensions,chunkWidthForDimensions));
                 playTiles[i][j].setBackground(Defaults.STARTING_COLOR);
             }
         }
     }
 
-    public Chunk(Color setColor){
+    public Chunk(short chunkWidth, Color setColor){
+        playTiles = new GameTile[chunkWidth][chunkWidth];
+
         for(int i = 0; i < playTiles.length; i++){
             for (int j = 0; j < playTiles[0].length; j++){//Switch to playTiles.length for efficiency as always square
 //                playTiles[i][j] = new GameTile(i*playTiles[0].length+j*playTiles[0].length+"");
                 playTiles[i][j] = new GameTile("1");
-                playTiles[i][j].setPreferredSize(new Dimension(20,20));
+                playTiles[i][j].setPreferredSize(new Dimension(chunkWidthForDimensions,chunkWidthForDimensions));
                 playTiles[i][j].setBackground(Defaults.STARTING_COLOR);
             }
         }

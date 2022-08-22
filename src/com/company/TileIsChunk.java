@@ -11,6 +11,7 @@ import java.util.LinkedList;
 public class TileIsChunk implements ActionListener {
 
     int gameNumOfTilesWidth;
+    short chunkWidthInTiles;
 
     JFrame gameChunkFrame;
 
@@ -23,8 +24,9 @@ public class TileIsChunk implements ActionListener {
     Chunk[] chunks;
 
 
-    TileIsChunk(int gameNumOfTilesWidth) {
+    TileIsChunk(int gameNumOfTilesWidth, short chunkWidthInTiles) {
         this.gameNumOfTilesWidth = gameNumOfTilesWidth;
+        this.chunkWidthInTiles = chunkWidthInTiles;
 
         gameChunkFrame = new JFrame("Tile is Chunk");
         t1 = new JTextField("");
@@ -45,7 +47,7 @@ public class TileIsChunk implements ActionListener {
             tmpButton.setBackground(Defaults.STARTING_COLOR);
             tmpButton.setText(i+"");
             tileArray[i] = tmpButton;
-            chunks[i] = new Chunk(Color.GREEN);
+            chunks[i] = new Chunk(this.chunkWidthInTiles, Color.GREEN);
         }
 
 
@@ -69,7 +71,7 @@ public class TileIsChunk implements ActionListener {
     public void runRandomTicks(final int tilesPerChunk){
         for( int chunkLocationInStorage: entityChunks){
             for(int i=0; i<tilesPerChunk; i++){
-                chunks[chunkLocationInStorage].playTiles[(int)Math.round(Math.random()*Chunk.CHUNK_WIDTH)][(int)Math.round(Math.random()*Chunk.CHUNK_WIDTH)].randomTick();//See if I can just truncate for speed.
+                chunks[chunkLocationInStorage].playTiles[(int)Math.round(Math.random()*this.chunkWidthInTiles)][(int)Math.round(Math.random()*this.chunkWidthInTiles)].randomTick();//See if I can just truncate for speed.
             }
         }
     }
@@ -84,7 +86,9 @@ public class TileIsChunk implements ActionListener {
     }
     public void updateChunkList(int numberOfChunksToKeepTotal){//return boolean?
         for(int i = 0; i < Math.min(Math.max(lazyChunks.size()-numberOfChunksToKeepTotal,0), 9); i++){
-            tileArray[lazyChunks.removeFirst()].setBackground(Color.pink);
+            int lazyChunkToRemoveNum = lazyChunks.removeFirst();
+            tileArray[lazyChunkToRemoveNum].setBackground(Color.pink);
+            chunks[lazyChunkToRemoveNum].setAllChunkColor(Color.pink);
         }
         System.out.println("Number of chunks within lazyChunks = "+ lazyChunks.size());
     }
@@ -97,7 +101,7 @@ public class TileIsChunk implements ActionListener {
             e.printStackTrace();
         }
         tile.setBackground(Color.orange);
-        chunks[Integer.parseInt(tile.getText())].setAllChunkColor(Color.cyan);
+        chunks[Integer.parseInt(tile.getText())].setAllChunkColor(Color.orange);
         lazyChunks.add(valueToAdd);
         recalculateChunkLayers();
     }
@@ -110,6 +114,7 @@ public class TileIsChunk implements ActionListener {
             e.printStackTrace();
         }
         tile.setBackground(Color.yellow);
+        chunks[Integer.parseInt(tile.getText())].setAllChunkColor(Color.yellow);
         lazyChunks.add(valueToAdd);
     }
 
@@ -126,7 +131,7 @@ public class TileIsChunk implements ActionListener {
         for(int i = 0; i< lazyChunks.size(); i++){
             int tileUnderConsideration = lazyChunks.get(i);
 //            if(entityTiles.contains(tileUnderConsideration-1) && entityTiles.contains(tileUnderConsideration+1) && entityTiles.contains(tileUnderConsideration-width) && entityTiles.contains(tileUnderConsideration+width)){//TODO: Make much more efficient
-            if(lazyChunks.contains(tileUnderConsideration- gameNumOfTilesWidth -1) && lazyChunks.contains(tileUnderConsideration- gameNumOfTilesWidth) && lazyChunks.contains(tileUnderConsideration- gameNumOfTilesWidth +1) && lazyChunks.contains(tileUnderConsideration-1) && lazyChunks.contains(tileUnderConsideration+1) && lazyChunks.contains(tileUnderConsideration+ gameNumOfTilesWidth -1) && lazyChunks.contains(tileUnderConsideration+ gameNumOfTilesWidth) && lazyChunks.contains(tileUnderConsideration+ gameNumOfTilesWidth +1)){//TODO: Make much more efficient
+            if(lazyChunks.contains(tileUnderConsideration - gameNumOfTilesWidth -1) && lazyChunks.contains(tileUnderConsideration - gameNumOfTilesWidth) && lazyChunks.contains(tileUnderConsideration - gameNumOfTilesWidth +1) && lazyChunks.contains(tileUnderConsideration-1) && lazyChunks.contains(tileUnderConsideration+1) && lazyChunks.contains(tileUnderConsideration + gameNumOfTilesWidth -1) && lazyChunks.contains(tileUnderConsideration + gameNumOfTilesWidth) && lazyChunks.contains(tileUnderConsideration + gameNumOfTilesWidth +1)){//TODO: Make much more efficient
                 removeChunkFromLazyProcessing(tileArray[tileUnderConsideration]);
                 addChunkToEntityProcessing(tileArray[tileUnderConsideration]);
             }
@@ -144,6 +149,6 @@ public class TileIsChunk implements ActionListener {
 //        System.out.println("Y = "+boxNumber / gameNumOfTilesWidth);//Y
         addChunkToLazyProcessing(selectedButton);
 
-        updateChunkList(10);
+        updateChunkList(40);
     }
 }
