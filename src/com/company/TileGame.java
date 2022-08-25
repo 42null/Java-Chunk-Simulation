@@ -4,10 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TileGame implements Runnable  {
-    final static short CHUNK_WIDTH_IN_TILES = 8;
+    final static short CHUNK_WIDTH_IN_TILES = 6;
     final static int GAME_WIDTH_IN_CHUNKS = 10;
 
-    final static int TILES_PER_CHUNK_PER_RANDOM_TICK = 3;
+    final static int TILES_PER_CHUNK_PER_RANDOM_TICK = 0;//3;
 
     TileIsChunk chunkDisplayAndController;
     GameTile[][] gameView;
@@ -29,6 +29,7 @@ public class TileGame implements Runnable  {
             }
             System.out.println("-----------------------------------------Hello from other thread");
             chunkDisplayAndController.runRandomTicks(TILES_PER_CHUNK_PER_RANDOM_TICK);
+            System.out.println("-----------------------------------------Hello from other thread END");
         }
     }
 
@@ -66,7 +67,7 @@ public class TileGame implements Runnable  {
 ////                gameView[i][j] = new GameTile(i*gameView.length+j+"");
 //                System.out.println("GameTile ["+i+"]["+j+"]");
 //                gameView[i][j].setPreferredSize(new Dimension(20,20));
-//                gameView[i][j].setBackground(D%efaults.STARTING_COLOR);
+//                gameView[i][j].setColor(D%efaults.STARTING_COLOR);
 //    //            tmpButton.setText(i+"");
 //                gameBoardFrame.add(gameView[i][j]);
 //            }
@@ -82,8 +83,6 @@ public class TileGame implements Runnable  {
 //            gameBoardFrame.add(tmpButton);
 //        }
 //
-
-
 
         gameBoardFrame.pack();
         gameBoardFrame.setVisible(true);
@@ -103,16 +102,27 @@ public class TileGame implements Runnable  {
      * @return true if player moved to another tile
      */
     public boolean moveNorth(){
+        playerX++;
+        tryToMove();
         return true;
     }
     public boolean moveEast(){
+        playerY++;
         return true;
     }
     public boolean moveSouth(){
+        playerX--;
         return true;
     }
     public boolean moveWest(){
+        playerY--;
         return true;
     }
+
+    private void tryToMove(){
+        Chunk playerInTile = chunkDisplayAndController.accessChunk(playerX,playerY);
+        playerInTile.setAllChunkColor(Color.red);
+    }
+
 
 }

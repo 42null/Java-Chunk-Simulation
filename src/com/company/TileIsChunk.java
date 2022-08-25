@@ -44,7 +44,7 @@ public class TileIsChunk implements ActionListener {
             Tile tmpButton = new Tile(buttonStringArray[i]);
 //            tmpButton.setPreferredSize(new Dimension(70,70));
             tmpButton.setPreferredSize(new Dimension(60,60));
-            tmpButton.setBackground(Defaults.STARTING_COLOR);
+            tmpButton.setColor(Defaults.STARTING_COLOR);
             tmpButton.setText(i+"");
             tileArray[i] = tmpButton;
             chunks[i] = new Chunk(this.chunkWidthInTiles, Color.GREEN);
@@ -71,7 +71,7 @@ public class TileIsChunk implements ActionListener {
     public void runRandomTicks(final int tilesPerChunk){
         for( int chunkLocationInStorage: entityChunks){
             for(int i=0; i<tilesPerChunk; i++){
-                chunks[chunkLocationInStorage].playTiles[(int)Math.round(Math.random()*this.chunkWidthInTiles)][(int)Math.round(Math.random()*this.chunkWidthInTiles)].randomTick();//See if I can just truncate for speed.
+                chunks[chunkLocationInStorage].playTiles[(int)Math.round(Math.random()*(this.chunkWidthInTiles-1))][(int)Math.round(Math.random()*(this.chunkWidthInTiles-1))].randomTick();//See if I can just truncate for speed.
             }
         }
     }
@@ -86,53 +86,76 @@ public class TileIsChunk implements ActionListener {
     }
     public void updateChunkList(int numberOfChunksToKeepTotal){//return boolean?
         for(int i = 0; i < Math.min(Math.max(lazyChunks.size()-numberOfChunksToKeepTotal,0), 9); i++){
-            int lazyChunkToRemoveNum = lazyChunks.removeFirst();
-            tileArray[lazyChunkToRemoveNum].setBackground(Color.pink);
-            chunks[lazyChunkToRemoveNum].setAllChunkColor(Color.pink);
+            int lazyChunkToRemoveNum = lazyChunks.getFirst();//TODO: GetFirstAndRemoveFirst make more efficent from processing
+//            int lazyChunkToRemoveNum = lazyChunks.removeFirst();
+            removeChunkFromLazyProcessing(tileArray[lazyChunkToRemoveNum]);//AlsoDoesEntity
         }
         System.out.println("Number of chunks within lazyChunks = "+ lazyChunks.size());
     }
 
-    private void addChunkToLazyProcessing(Tile tile){
+    private void addChunkToLazyProcessing(Tile tile){//TODO: Make not move location in array if already existing?
         Integer valueToAdd = Integer.valueOf(tile.getText());
         try{
             lazyChunks.removeFirstOccurrence(valueToAdd);
         }catch (ArrayIndexOutOfBoundsException e){
             e.printStackTrace();
         }
-        tile.setBackground(Color.orange);
-        chunks[Integer.parseInt(tile.getText())].setAllChunkColor(Color.orange);
+        tile.setColor(Color.orange);
         lazyChunks.add(valueToAdd);
+        chunks[Integer.parseInt(tile.getText())].setAllChunkColor(Color.orange);
         recalculateChunkLayers();
+        System.out.println("Lazy.size = "+lazyChunks.size());
     }
 
     private void addChunkToEntityProcessing(Tile tile){
         Integer valueToAdd = Integer.valueOf(tile.getText());
         try{
-            entityChunks.removeFirstOccurrence(valueToAdd);
-        }catch (ArrayIndexOutOfBoundsException e){
-            e.printStackTrace();
+            if(!entityChunks.removeFirstOccurrence(valueToAdd)){
+                tile.setColor(Color.yellow);
+                chunks[Integer.parseInt(tile.getText())].setAllChunkColor(Color.yellow);
+            }
+            entityChunks.add(valueToAdd);
+        }catch(ArrayIndexOutOfBoundsException e){
+//            e.printStackTrace();
         }
-        tile.setBackground(Color.yellow);
-        chunks[Integer.parseInt(tile.getText())].setAllChunkColor(Color.yellow);
-        lazyChunks.add(valueToAdd);
     }
 
     private void removeChunkFromLazyProcessing(Tile tile){
-        if(lazyChunks.removeFirstOccurrence(Integer.parseInt(tile.getText()))){
-            tile.setBackground(Color.pink);
+        int tileNum = Integer.parseInt(tile.getText());
+        if(lazyChunks.removeFirstOccurrence(tileNum)){
+            tile.setColor(Color.pink);
+            chunks[tileNum].setAllChunkColor(Color.pink);
             System.out.println("Successfully removed chunk from lazy");
         }else{
             System.out.println("Attempted remove from lazy processing did not work");
         }
+        if(entityChunks.removeFirstOccurrence(tileNum)){
+            tile.setColor(Color.pink);
+            System.out.println("Successfully removed chunk from entity");
+            chunks[tileNum].setAllChunkColor(Color.pink);
+        }
     }
+
+    public Chunk accessChunk(int x, int y){
+        return chunks[(y/this.gameNumOfTilesWidth)*this.gameNumOfTilesWidth+x/this.gameNumOfTilesWidth];
+    }
+
+
 
      public void recalculateChunkLayers(){
         for(int i = 0; i< lazyChunks.size(); i++){
             int tileUnderConsideration = lazyChunks.get(i);
 //            if(entityTiles.contains(tileUnderConsideration-1) && entityTiles.contains(tileUnderConsideration+1) && entityTiles.contains(tileUnderConsideration-width) && entityTiles.contains(tileUnderConsideration+width)){//TODO: Make much more efficient
-            if(lazyChunks.contains(tileUnderConsideration - gameNumOfTilesWidth -1) && lazyChunks.contains(tileUnderConsideration - gameNumOfTilesWidth) && lazyChunks.contains(tileUnderConsideration - gameNumOfTilesWidth +1) && lazyChunks.contains(tileUnderConsideration-1) && lazyChunks.contains(tileUnderConsideration+1) && lazyChunks.contains(tileUnderConsideration + gameNumOfTilesWidth -1) && lazyChunks.contains(tileUnderConsideration + gameNumOfTilesWidth) && lazyChunks.contains(tileUnderConsideration + gameNumOfTilesWidth +1)){//TODO: Make much more efficient
-                removeChunkFromLazyProcessing(tileArray[tileUnderConsideration]);
+            if(lazyChunks.contains(tileUnderConsideration - gameNumOfTilesWidth -1) &&
+               lazyChunks.contains(tileUnderConsideration - gameNumOfTilesWidth) &&
+               lazyChunks.contains(tileUnderConsideration - gameNumOfTilesWidth +1) &&
+               lazyChunks.contains(tileUnderConsideration-1) &&
+               lazyChunks.contains(tileUnderConsideration+1) &&
+               lazyChunks.contains(tileUnderConsideration + gameNumOfTilesWidth -1) &&
+               lazyChunks.contains(tileUnderConsideration + gameNumOfTilesWidth) &&
+               lazyChunks.contains(tileUnderConsideration + gameNumOfTilesWidth +1)){//TODO: Make much more efficient
+
+//                removeChunkFromLazyProcessing(tileArray[tileUnderConsideration]);
                 addChunkToEntityProcessing(tileArray[tileUnderConsideration]);
             }
         }

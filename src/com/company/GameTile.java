@@ -12,6 +12,11 @@ public class GameTile extends JButton{
     private String _name;
     private int _toggleStageSelected = 0;//0 = default
     private Color _color = Defaults.STARTING_COLOR;
+
+    public void setColor(Color newColor){//TODO: Make return boolean if changed?
+        this._color = newColor;
+        updateColorInDisplay();
+    }
     public Color getColor(){return _color;}
 
     public GameTile(String name_) {
@@ -24,11 +29,13 @@ public class GameTile extends JButton{
      * @return if there has been a visual change
      */
     public boolean randomTick(){
-        this._color = this._color.darker();
-        this.setBackground(_color);
+        setColor(this._color.darker());
         return true;
     }
 
+    public void updateColorInDisplay(){
+        this.setBackground(this._color);
+    }
 
 
     public int getPosistion(){
@@ -73,6 +80,6 @@ public class GameTile extends JButton{
                 _color = Defaults.FIRSTCLICK_RIGHT;
                 break;
         }
-        this.setBackground(_color);
+        this.setColor(_color);
     }
 }

@@ -12,6 +12,11 @@ public class Tile extends JButton{
     private String _name;
     private int _toggleStageSelected = 0;//0 = default
     private Color _color = Defaults.STARTING_COLOR;
+
+    public void setColor(Color newColor){//TODO: Make return boolean if changed?
+        this._color = newColor;
+        this.setBackground(this._color);
+    }
     public Color getColor(){return _color;}
 
     public Tile(String name_) {
@@ -79,6 +84,6 @@ public class Tile extends JButton{
                 _color = Defaults.FIRSTCLICK_RIGHT;
                 break;
         }
-        this.setBackground(_color);
+        this.setColor(_color);
     }
 }

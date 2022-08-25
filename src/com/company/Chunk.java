@@ -15,7 +15,7 @@ public class Chunk{
 //                playTiles[i][j] = new GameTile(i*playTiles[0].length+j*playTiles[0].length+"");
                 playTiles[i][j] = new GameTile("1");
                 playTiles[i][j].setPreferredSize(new Dimension(chunkWidthForDimensions,chunkWidthForDimensions));
-                playTiles[i][j].setBackground(Defaults.STARTING_COLOR);
+                playTiles[i][j].setColor(Defaults.STARTING_COLOR);
             }
         }
     }
@@ -28,7 +28,7 @@ public class Chunk{
 //                playTiles[i][j] = new GameTile(i*playTiles[0].length+j*playTiles[0].length+"");
                 playTiles[i][j] = new GameTile("1");
                 playTiles[i][j].setPreferredSize(new Dimension(chunkWidthForDimensions,chunkWidthForDimensions));
-                playTiles[i][j].setBackground(Defaults.STARTING_COLOR);
+                playTiles[i][j].setColor(Defaults.STARTING_COLOR);
             }
         }
         setAllChunkColor(setColor);
@@ -44,7 +44,7 @@ public class Chunk{
     public void generateChunk() {
         for (int row = 0; row < playTiles.length; row++) {
             for (int colum = 0; colum < playTiles[0].length; colum++) {
-                playTiles[row][colum].setBackground(new Color(255/colum,255/row,100));
+                playTiles[row][colum].setColor(new Color(255/colum,255/row,100));
             }
         }
     }
@@ -56,9 +56,16 @@ public class Chunk{
 //    }
 
     public void setAllChunkColor(Color newColor){//Create for double loop is a method that returns?
-        for (int row = 0; row < playTiles.length; row++) {
-            for (int colum = 0; colum < playTiles[0].length; colum++) {
-                playTiles[row][colum].setBackground(newColor);
+        for (int row = 0; row < playTiles.length; row++){
+            for (int colum = 0; colum < playTiles[0].length; colum++){
+                if( playTiles[row][colum].getColor()==Defaults.STARTING_COLOR ||
+                    playTiles[row][colum].getColor()==Color.orange ||
+                    playTiles[row][colum].getColor()==Color.yellow ||
+                    playTiles[row][colum].getColor()==Color.pink ||
+                    playTiles[row][colum].getColor()==Color.green){
+                    playTiles[row][colum].setColor(newColor);
+                }else{
+                }
             }
         }
     }
