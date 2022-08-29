@@ -85,21 +85,29 @@ public class UIControls implements ActionListener{
         if(stringCheck=="<-"){
             game.moveWest();
             _controlsArray[2*widthInButtons+0].setText(game.getPlayerX()+","+game.getPlayerY());
-            game.chunkDisplayAndController.chunks[game.getPlayerX()*game.chunkDisplayAndController.gameNumOfTilesWidth+game.getPlayerY()].setInner
+            game.setPlayerTileColor();
+
         }else if(stringCheck=="^") {
             game.moveNorth();
             _controlsArray[2*widthInButtons+0].setText(game.getPlayerX()+","+game.getPlayerY());
+            game.setPlayerTileColor();
+
         }else if(stringCheck=="v") {
             game.moveSouth();
             _controlsArray[2*widthInButtons+0].setText(game.getPlayerX()+","+game.getPlayerY());
+            game.setPlayerTileColor();
+
         }else if(stringCheck=="->") {
             game.moveEast();
             _controlsArray[2*widthInButtons+0].setText(game.getPlayerX()+","+game.getPlayerY());
+            game.setPlayerTileColor();
+
         }else if(stringCheck=="T"){
 //            game.chunkDisplayAndController.updateChunkList(10);
 //            game.chunkDisplayAndController.recalculateChunkLayers();
 //            recalculateChunkLayers();
 //            TileGame.spawnAnt();
+            game.setPlayerTileColor();
         }else{
             return false;
         }

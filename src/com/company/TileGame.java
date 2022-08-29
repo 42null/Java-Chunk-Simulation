@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class TileGame implements Runnable  {
     final static short CHUNK_WIDTH_IN_TILES = 6;
-    final static int GAME_WIDTH_IN_CHUNKS = 10;
+    final static int GAME_WIDTH_IN_CHUNKS = 6;
 
     final static int TILES_PER_CHUNK_PER_RANDOM_TICK = 0;//3;
 
@@ -14,9 +14,11 @@ public class TileGame implements Runnable  {
 
     JFrame gameBoardFrame;
     JTextField t1;
-    
-    int playerX = 3;
-    int playerY = 3;
+
+//    int playerX = 3;
+//    int playerY = 3;
+    int playerX = 0;
+    int playerY = 0;
 
     @Override
     public void run(){
@@ -124,5 +126,8 @@ public class TileGame implements Runnable  {
         playerInTile.setAllChunkColor(Color.red);
     }
 
+    public void setPlayerTileColor(){
+        chunkDisplayAndController.setGameTileColor(getPlayerX(),getPlayerY());
+    }
 
 }

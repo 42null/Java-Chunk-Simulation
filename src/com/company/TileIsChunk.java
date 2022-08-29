@@ -80,6 +80,9 @@ public class TileIsChunk implements ActionListener {
     public void displayCurrentPlayersChunk(){
 
     }
+    public void setGameTileColor(int x, int y){
+        chunks[(y/gameNumOfTilesWidth)*chunkWidthInTiles+x/gameNumOfTilesWidth].playTiles[x%gameNumOfTilesWidth%chunkWidthInTiles][y%gameNumOfTilesWidth%chunkWidthInTiles].setColor(Color.BLUE);
+    }
 
     public void updateChunkList(){
         this.updateChunkList(lazyChunks.size()-1);
