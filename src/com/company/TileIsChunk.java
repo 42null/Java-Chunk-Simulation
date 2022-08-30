@@ -144,7 +144,6 @@ public class TileIsChunk implements ActionListener {
     }
 
 
-
      public void recalculateChunkLayers(){
         for(int i = 0; i< lazyChunks.size(); i++){
             int tileUnderConsideration = lazyChunks.get(i);

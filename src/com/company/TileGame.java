@@ -104,31 +104,32 @@ public class TileGame implements Runnable  {
      * @return true if player moved to another tile
      */
     public boolean moveNorth(){
-        if(tryToMove()){
-            playerY--;
-        }
+        playerY--;
+        tryToMove();
+
         return true;
     }
     public boolean moveEast(){
-        if(tryToMove()){
-            playerX++;
-        }
+        playerX++;
+        tryToMove();
+
         return true;
     }
     public boolean moveSouth(){
-        if(tryToMove()){
-            playerY++;
-        }
+        playerY++;
+        tryToMove();
+
         return true;
     }
     public boolean moveWest(){
-        if(tryToMove()) {
-            playerX--;
-        }
+        playerX--;
+        tryToMove();
+
         return true;
     }
 
     private boolean tryToMove(){
+
         Chunk playerInTile = chunkDisplayAndController.accessChunk(playerX, playerY);
         playerInTile.setAllChunkColor(Color.red);
         return true;
