@@ -81,7 +81,7 @@ public class TileIsChunk implements ActionListener {
 
     }
     public void setGameTileColor(int x, int y){
-        chunks[(y/gameNumOfTilesWidth)*chunkWidthInTiles+x/gameNumOfTilesWidth].playTiles[x%gameNumOfTilesWidth%chunkWidthInTiles][y%gameNumOfTilesWidth%chunkWidthInTiles].setColor(Color.BLUE);
+        chunks[(y/chunkWidthInTiles)*gameNumOfTilesWidth+x/chunkWidthInTiles].playTiles[x%chunkWidthInTiles][y%chunkWidthInTiles].setColor(Color.BLUE);
     }
 
     public void updateChunkList(){
@@ -140,7 +140,7 @@ public class TileIsChunk implements ActionListener {
     }
 
     public Chunk accessChunk(int x, int y){
-        return chunks[(y/this.gameNumOfTilesWidth)*this.gameNumOfTilesWidth+x/this.gameNumOfTilesWidth];
+        return chunks[(y/this.chunkWidthInTiles)*this.gameNumOfTilesWidth+x/this.chunkWidthInTiles];
     }
 
 

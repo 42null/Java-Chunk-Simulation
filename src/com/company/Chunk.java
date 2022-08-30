@@ -13,7 +13,7 @@ public class Chunk{
         for(int i = 0; i < playTiles.length; i++){
             for (int j = 0; j < playTiles[0].length; j++){//Switch to playTiles.length for efficiency as always square
 //                playTiles[i][j] = new GameTile(i*playTiles[0].length+j*playTiles[0].length+"");
-                playTiles[i][j] = new GameTile("1");
+                playTiles[j][j] = new GameTile("ij");
                 playTiles[i][j].setPreferredSize(new Dimension(chunkWidthForDimensions,chunkWidthForDimensions));
                 playTiles[i][j].setColor(Defaults.STARTING_COLOR);
             }
@@ -56,7 +56,7 @@ public class Chunk{
 //    }
 
     public void setAllChunkColor(Color newColor){//Create for double loop is a method that returns?
-        for (int row = 0; row < playTiles.length; row++){
+        for (int row = 0; row < playTiles[0].length; row++){
             for (int colum = 0; colum < playTiles[0].length; colum++){
                 if( playTiles[row][colum].getColor()==Defaults.STARTING_COLOR ||
                     playTiles[row][colum].getColor()==Color.orange ||

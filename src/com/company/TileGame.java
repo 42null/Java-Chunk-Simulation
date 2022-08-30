@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TileGame implements Runnable  {
-    final static short CHUNK_WIDTH_IN_TILES = 6;
-    final static int GAME_WIDTH_IN_CHUNKS = 6;
+    final static int GAME_WIDTH_IN_CHUNKS = 12;
+    final static short CHUNK_WIDTH_IN_TILES = 3;
 
     final static int TILES_PER_CHUNK_PER_RANDOM_TICK = 0;//3;
 
@@ -104,26 +104,34 @@ public class TileGame implements Runnable  {
      * @return true if player moved to another tile
      */
     public boolean moveNorth(){
-        playerX++;
-        tryToMove();
+        if(tryToMove()){
+            playerY--;
+        }
         return true;
     }
     public boolean moveEast(){
-        playerY++;
+        if(tryToMove()){
+            playerX++;
+        }
         return true;
     }
     public boolean moveSouth(){
-        playerX--;
+        if(tryToMove()){
+            playerY++;
+        }
         return true;
     }
     public boolean moveWest(){
-        playerY--;
+        if(tryToMove()) {
+            playerX--;
+        }
         return true;
     }
 
-    private void tryToMove(){
-        Chunk playerInTile = chunkDisplayAndController.accessChunk(playerX,playerY);
+    private boolean tryToMove(){
+        Chunk playerInTile = chunkDisplayAndController.accessChunk(playerX, playerY);
         playerInTile.setAllChunkColor(Color.red);
+        return true;
     }
 
     public void setPlayerTileColor(){
