@@ -1,5 +1,7 @@
 package com.company;
 
+import com.company.tileTypes.GameTile;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,7 +9,7 @@ public class TileGame implements Runnable  {
     final static int GAME_WIDTH_IN_CHUNKS = 12;
     final static short CHUNK_WIDTH_IN_TILES = 3;
 
-    final static int TILES_PER_CHUNK_PER_RANDOM_TICK = 0;//3;
+    final static int TILES_PER_CHUNK_PER_RANDOM_TICK = 1;//3;
 
     TileIsChunk chunkDisplayAndController;
     GameTile[][] gameView;
@@ -25,7 +27,7 @@ public class TileGame implements Runnable  {
         //Run everything in a tick
         while(true){
             try {
-                Thread.sleep(5000);
+                Thread.sleep(10000);
             } catch (InterruptedException e) {
 //                throw new RuntimeException(e);
             }
@@ -104,34 +106,47 @@ public class TileGame implements Runnable  {
      * @return true if player moved to another tile
      */
     public boolean moveNorth(){
-        playerY--;
-        tryToMove();
+        checkAndMoveIfPossible(this.playerX, this.playerY-1);
+        colorPlayerChunk();
 
         return true;
     }
     public boolean moveEast(){
-        playerX++;
-        tryToMove();
+        checkAndMoveIfPossible(this.playerX+1, this.playerY);
+        colorPlayerChunk();
 
         return true;
     }
     public boolean moveSouth(){
-        playerY++;
-        tryToMove();
+        checkAndMoveIfPossible(this.playerX, this.playerY+1);
+        colorPlayerChunk();
 
         return true;
     }
     public boolean moveWest(){
-        playerX--;
-        tryToMove();
+        checkAndMoveIfPossible(this.playerX-1, this.playerY);
+        colorPlayerChunk();
 
         return true;
     }
 
-    private boolean tryToMove(){
+    private void checkAndMoveIfPossible(int newX, int newY){
+        if(chunkDisplayAndController.getGameTile(newX, newY).landable){
+            playerX = newX;
+            playerY = newY;
+        }
+    }
 
-        Chunk playerInTile = chunkDisplayAndController.accessChunk(playerX, playerY);
-        playerInTile.setAllChunkColor(Color.red);
+    private boolean colorPlayerChunk(){
+        int chunkXY[] = chunkDisplayAndController.getChunkNumXYFromGameXY(playerX, playerY);
+        Chunk playerInTile = chunkDisplayAndController.getChunk(playerX, playerY);
+//        playerInTile.setAllChunkColor(Color.red);
+        for(int i = -1; i < 2; i++){
+            for(int j = -1; j < 2; j++){
+                chunkDisplayAndController.addChunkFromIndex(chunkXY[0]+i,chunkXY[1]+j);
+            }
+        }
+
         return true;
     }
 

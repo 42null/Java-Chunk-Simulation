@@ -34,7 +34,7 @@ public class UIControls implements ActionListener{
         }
         for(int i = 0; i< _controlsArray.length; i++){//USE STRINGS TO TURN INTO BUTTONS
             Tile tmpButton = new Tile(buttonStringArray[i]);
-            tmpButton.setPreferredSize(new Dimension(60,60));
+            tmpButton.setPreferredSize(new Dimension(80,80));
             tmpButton.setColor(Defaults.STARTING_COLOR);
 //            tmpButton.setText(i+"");
             _controlsArray[i] = tmpButton;

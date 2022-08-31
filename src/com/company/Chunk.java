@@ -1,5 +1,7 @@
 package com.company;
 
+import com.company.tileTypes.GameTile;
+
 import java.awt.*;
 
 public class Chunk{
@@ -62,6 +64,7 @@ public class Chunk{
                     playTiles[row][colum].getColor()==Color.orange ||
                     playTiles[row][colum].getColor()==Color.yellow ||
                     playTiles[row][colum].getColor()==Color.pink ||
+                    playTiles[row][colum].getColor()==Color.blue ||
                     playTiles[row][colum].getColor()==Color.green){
                     playTiles[row][colum].setColor(newColor);
                 }else{

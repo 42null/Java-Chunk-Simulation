@@ -1,6 +1,6 @@
 package com.company;
 
-import javafx.embed.swing.JFXPanel;
+import com.company.tileTypes.GameTile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -80,6 +80,10 @@ public class TileIsChunk implements ActionListener {
     public void displayCurrentPlayersChunk(){
 
     }
+    public GameTile getGameTile(int x, int y){
+        return chunks[(y/chunkWidthInTiles)*gameNumOfTilesWidth+x/chunkWidthInTiles].playTiles[x%chunkWidthInTiles][y%chunkWidthInTiles];
+    }
+
     public void setGameTileColor(int x, int y){
         chunks[(y/chunkWidthInTiles)*gameNumOfTilesWidth+x/chunkWidthInTiles].playTiles[x%chunkWidthInTiles][y%chunkWidthInTiles].setColor(Color.BLUE);
     }
@@ -96,18 +100,44 @@ public class TileIsChunk implements ActionListener {
         System.out.println("Number of chunks within lazyChunks = "+ lazyChunks.size());
     }
 
-    private void addChunkToLazyProcessing(Tile tile){//TODO: Make not move location in array if already existing?
-        Integer valueToAdd = Integer.valueOf(tile.getText());
+    /**
+     *
+     * @param tile
+     * @return status byte 0 for reserved, 1 for could not get value from getText(), 2 for requested chunk/tile does not exist, 3 for did not already exist, 4 for already existed,
+     */
+    private byte addChunkToLazyProcessing(Tile tile){//TODO: Make not move location in array if already existing?  //TODO: Use a nibble instead
+        byte returnStatus;
+        int valueToAdd = -1;
         try{
-            lazyChunks.removeFirstOccurrence(valueToAdd);
-        }catch (ArrayIndexOutOfBoundsException e){
-            e.printStackTrace();
+            valueToAdd = Integer.parseInt(tile.getText());
+        }catch(NullPointerException e){
+//            e.printStackTrace();
+            return 1;
         }
-        tile.setColor(Color.orange);
-        lazyChunks.add(valueToAdd);
-        chunks[Integer.parseInt(tile.getText())].setAllChunkColor(Color.orange);
+        if(lazyChunks.removeFirstOccurrence(valueToAdd)){
+            returnStatus = 4;
+        }else{
+            returnStatus = 3;
+        }
+
+        try{
+            lazyChunks.add(valueToAdd);//TODO: Combine with above and setting returnstatus
+            if(returnStatus==4){
+//                chunks[valueToAdd].setAllChunkColor(Color.orange);
+            }else{
+                chunks[valueToAdd].setAllChunkColor(Color.orange);
+                tile.setColor(Color.orange);
+            }
+        }catch(ArrayIndexOutOfBoundsException e){
+//            e.printStackTrace();
+            return 2;
+        }
         recalculateChunkLayers();
         System.out.println("Lazy.size = "+lazyChunks.size());
+        updateChunkList(60);
+        System.out.println("Lazy.size = "+lazyChunks.size());
+
+        return returnStatus;
     }
 
     private void addChunkToEntityProcessing(Tile tile){
@@ -139,8 +169,25 @@ public class TileIsChunk implements ActionListener {
         }
     }
 
-    public Chunk accessChunk(int x, int y){
+    public int[] getChunkNumXYFromGameXY(int x, int y){
+        return new int[] {x/chunkWidthInTiles,y/chunkWidthInTiles};
+    }
+
+    public Chunk getChunk(int x, int y){
         return chunks[(y/this.chunkWidthInTiles)*this.gameNumOfTilesWidth+x/this.chunkWidthInTiles];
+    }
+
+    public boolean addChunkFromIndex(int x, int y){
+        try {
+//            System.out.println("x = " + x + ", y = " + y);
+            if (this.addChunkToLazyProcessing(tileArray[y * this.gameNumOfTilesWidth + x]) > 2) {
+            } else {
+                return false;
+            }
+        }catch(Exception e){
+
+        }
+        return true;
     }
 
 
@@ -173,7 +220,5 @@ public class TileIsChunk implements ActionListener {
 //        System.out.println("X = "+boxNumber % gameNumOfTilesWidth);//X
 //        System.out.println("Y = "+boxNumber / gameNumOfTilesWidth);//Y
         addChunkToLazyProcessing(selectedButton);
-
-        updateChunkList(40);
     }
 }
