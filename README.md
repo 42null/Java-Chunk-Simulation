@@ -9,7 +9,7 @@ Currently working on core elements and creating a efficent base to build the res
 - [ ] Diffrent tile types (currently under development)
 
 - [ ] Simulation
-  - [ ] Seperation of unprocessed chunks, lazy chunks, and entity chunks with auto creataion and renoval.
+  - [X] Seperation of unprocessed chunks, lazy chunks, and entity chunks with auto creataion and removal.
   - [ ] Agents/Entities
   - [ ] Gravity
 
