@@ -6,10 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TileGame implements Runnable  {
-    final static int GAME_WIDTH_IN_CHUNKS = 12;
-    final static short CHUNK_WIDTH_IN_TILES = 3;
+    final static int GAME_WIDTH_IN_CHUNKS = 10;
+    final static short CHUNK_WIDTH_IN_TILES = 20;
 
-    final static int TILES_PER_CHUNK_PER_RANDOM_TICK = 1;//3;
+    final static int TILES_PER_CHUNK_PER_RANDOM_TICK = 0;//3;
 
     TileIsChunk chunkDisplayAndController;
     GameTile[][] gameView;
@@ -27,14 +27,32 @@ public class TileGame implements Runnable  {
         //Run everything in a tick
         while(true){
             try {
-//                Thread.sleep(10000);
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
+                Thread.sleep(1);
+                int direction = (int) (Math.random()*4D);
+
+                    switch(direction){
+                        case 0:
+                            moveNorth();
+                            break;
+                        case 1:
+                            moveEast();
+                            break;
+                        case 2:
+                            moveSouth();
+                            break;
+                        case 3:
+                            moveWest();
+                            break;
+                        default:
+                            break;
+                    }
+                } catch (InterruptedException e) {
 //                throw new RuntimeException(e);
             }
-            System.out.println("-----------------------------------------Hello from other thread");
+//            System.out.println("-----------------------------------------Hello from other thread");
             chunkDisplayAndController.runRandomTicks(TILES_PER_CHUNK_PER_RANDOM_TICK);
-            System.out.println("-----------------------------------------Hello from other thread END");
+//            moveSouth();
+//            System.out.println("-----------------------------------------Hello from other thread END");
         }
     }
 
@@ -138,7 +156,7 @@ public class TileGame implements Runnable  {
                 setPlayerTileColorTemp(Defaults.PLAYER_COLOR);
             }
         }catch(ArrayIndexOutOfBoundsException e){
-            System.out.println("Sorry but that space does not exist.");
+//            System.out.println("Sorry but that space does not exist.");
         }
     }
 

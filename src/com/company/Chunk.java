@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Chunk{
 
-    public static final short chunkWidthForDimensions = 15;
+    public static final short chunkWidthForDimensions = 5;
 
     GameTile[][] playTiles;
 

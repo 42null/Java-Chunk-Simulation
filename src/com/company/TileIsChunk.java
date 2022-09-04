@@ -100,7 +100,7 @@ public class TileIsChunk implements ActionListener {
 //            int lazyChunkToRemoveNum = lazyChunks.removeFirst();
             removeChunkFromLazyProcessing(tileArray[lazyChunkToRemoveNum]);//AlsoDoesEntity
         }
-        System.out.println("Number of chunks within lazyChunks = "+ lazyChunks.size());
+//        System.out.println("Number of chunks within lazyChunks = "+ lazyChunks.size());
     }
 
     /**
@@ -136,9 +136,9 @@ public class TileIsChunk implements ActionListener {
             return 2;
         }
         recalculateChunkLayers();
-        System.out.println("Lazy.size = "+lazyChunks.size());
-        updateChunkList(60);
-        System.out.println("Lazy.size = "+lazyChunks.size());
+//        System.out.println("Lazy.size = "+lazyChunks.size());
+        updateChunkList(12);
+//        System.out.println("Lazy.size = "+lazyChunks.size());
 
         return returnStatus;
     }
@@ -161,13 +161,13 @@ public class TileIsChunk implements ActionListener {
         if(lazyChunks.removeFirstOccurrence(tileNum)){
             tile.setColor(Color.pink);
             chunks[tileNum].setAllChunkColor(Color.pink);
-            System.out.println("Successfully removed chunk from lazy");
+//            System.out.println("Successfully removed chunk from lazy");
         }else{
-            System.out.println("Attempted remove from lazy processing did not work");
+//            System.out.println("Attempted remove from lazy processing did not work");
         }
         if(entityChunks.removeFirstOccurrence(tileNum)){
             tile.setColor(Color.pink);
-            System.out.println("Successfully removed chunk from entity");
+//            System.out.println("Successfully removed chunk from entity");
             chunks[tileNum].setAllChunkColor(Color.pink);
         }
     }
