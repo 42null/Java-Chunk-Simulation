@@ -107,33 +107,32 @@ public class TileGame implements Runnable  {
      */
     public boolean moveNorth(){
         checkAndMoveIfPossible(this.playerX, this.playerY-1);
-        colorPlayerChunk();
 
         return true;
     }
     public boolean moveEast(){
         checkAndMoveIfPossible(this.playerX+1, this.playerY);
-        colorPlayerChunk();
 
         return true;
     }
     public boolean moveSouth(){
         checkAndMoveIfPossible(this.playerX, this.playerY+1);
-        colorPlayerChunk();
 
         return true;
     }
     public boolean moveWest(){
         checkAndMoveIfPossible(this.playerX-1, this.playerY);
-        colorPlayerChunk();
-
         return true;
     }
 
     private void checkAndMoveIfPossible(int newX, int newY){
         if(chunkDisplayAndController.getGameTile(newX, newY).landable){
+            setPlayerTileColor(chunkDisplayAndController.getGameTile(playerX,playerY).getColor());
+//            setPlayerTileColor(Color.red);
             playerX = newX;
             playerY = newY;
+            colorPlayerChunk();//TODO: Make more efficent?
+            setPlayerTileColorTemp(Defaults.PLAYER_COLOR);
         }
     }
 
@@ -150,8 +149,11 @@ public class TileGame implements Runnable  {
         return true;
     }
 
-    public void setPlayerTileColor(){
-        chunkDisplayAndController.setGameTileColor(getPlayerX(),getPlayerY());
+    public void setPlayerTileColor(Color newColor){
+        chunkDisplayAndController.setGameTileColor(getPlayerX(),getPlayerY(),newColor);
     }
 
+    public void setPlayerTileColorTemp(Color tempColor){
+        chunkDisplayAndController.setGameTileColorTemp(getPlayerX(),getPlayerY(),tempColor);
+    }
 }

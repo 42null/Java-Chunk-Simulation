@@ -61,10 +61,10 @@ public class Tile extends JButton{
                 _color = Defaults.STARTING_COLOR;
                 break;
             case(1):
-                _color = Defaults.FIRSTCLICK_LEFT;
+//                _color = Defaults.FIRSTCLICK_LEFT;
                 break;
             case(2):
-                _color = Defaults.FIRSTCLICK_RIGHT;
+//                _color = Defaults.FIRSTCLICK_RIGHT;
                 break;
         }
     }
@@ -78,10 +78,10 @@ public class Tile extends JButton{
                 _color = Defaults.STARTING_COLOR;
                 break;
             case(1):
-                _color = Defaults.FIRSTCLICK_LEFT;
+//                _color = Defaults.FIRSTCLICK_LEFT;
                 break;
             case(2):
-                _color = Defaults.FIRSTCLICK_RIGHT;
+//                _color = Defaults.FIRSTCLICK_RIGHT;
                 break;
         }
         this.setColor(_color);

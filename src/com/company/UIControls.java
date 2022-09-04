@@ -1,7 +1,5 @@
 package com.company;
 
-import javafx.scene.text.FontWeight;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -85,29 +83,54 @@ public class UIControls implements ActionListener{
         if(stringCheck=="<-"){
             game.moveWest();
             _controlsArray[2*widthInButtons+0].setText(game.getPlayerX()+","+game.getPlayerY());
-            game.setPlayerTileColor();
 
         }else if(stringCheck=="^") {
             game.moveNorth();
             _controlsArray[2*widthInButtons+0].setText(game.getPlayerX()+","+game.getPlayerY());
-            game.setPlayerTileColor();
 
         }else if(stringCheck=="v") {
             game.moveSouth();
             _controlsArray[2*widthInButtons+0].setText(game.getPlayerX()+","+game.getPlayerY());
-            game.setPlayerTileColor();
 
         }else if(stringCheck=="->") {
             game.moveEast();
             _controlsArray[2*widthInButtons+0].setText(game.getPlayerX()+","+game.getPlayerY());
-            game.setPlayerTileColor();
 
         }else if(stringCheck=="T"){
 //            game.chunkDisplayAndController.updateChunkList(10);
 //            game.chunkDisplayAndController.recalculateChunkLayers();
 //            recalculateChunkLayers();
 //            TileGame.spawnAnt();
-            game.setPlayerTileColor();
+//            game.setPlayerTileColor(Defaults.PLAYER_COLOR);
+
+            game.playerX = game.CHUNK_WIDTH_IN_TILES*game.GAME_WIDTH_IN_CHUNKS/2;
+            game.playerY = game.CHUNK_WIDTH_IN_TILES*game.GAME_WIDTH_IN_CHUNKS/2;
+            for(int j = 5/*(int) Math.random() * 20*/; j>0; j--){
+                int direction = (int) (Math.random()*4D);
+                for(int i = 5/*(int) Math.random() * 20*/; i>0; i--){
+    //                try {
+    //                    Thread.sleep(1000);
+    //                } catch (InterruptedException e) {
+    //                    throw new RuntimeException(e);
+    //                }
+                    switch(direction){
+                        case 0:
+                            game.moveNorth();
+                            break;
+                        case 1:
+                            game.moveEast();
+                            break;
+                        case 2:
+                            game.moveSouth();
+                            break;
+                        case 3:
+                            game.moveWest();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
         }else{
             return false;
         }
