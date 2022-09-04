@@ -27,6 +27,7 @@ public class TileGame implements Runnable  {
         //Run everything in a tick
         while(true){
             try {
+//                Thread.sleep(10000);
                 Thread.sleep(10000);
             } catch (InterruptedException e) {
 //                throw new RuntimeException(e);
@@ -126,13 +127,18 @@ public class TileGame implements Runnable  {
     }
 
     private void checkAndMoveIfPossible(int newX, int newY){
-        if(chunkDisplayAndController.getGameTile(newX, newY).landable){
-            setPlayerTileColor(chunkDisplayAndController.getGameTile(playerX,playerY).getColor());
-//            setPlayerTileColor(Color.red);
-            playerX = newX;
-            playerY = newY;
-            colorPlayerChunk();//TODO: Make more efficent?
-            setPlayerTileColorTemp(Defaults.PLAYER_COLOR);
+        //Make sure not out of bounds by checking if chunk exists
+        try{
+            if(chunkDisplayAndController.getGameTile(newX, newY).landable){
+                setPlayerTileColor(chunkDisplayAndController.getGameTile(playerX,playerY).getColor());
+    //            setPlayerTileColor(Color.red);
+                playerX = newX;
+                playerY = newY;
+                colorPlayerChunk();//TODO: Make more efficent?
+                setPlayerTileColorTemp(Defaults.PLAYER_COLOR);
+            }
+        }catch(ArrayIndexOutOfBoundsException e){
+            System.out.println("Sorry but that space does not exist.");
         }
     }
 
