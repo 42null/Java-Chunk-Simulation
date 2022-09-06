@@ -1,16 +1,22 @@
 # Java Chunk Rendering
-In order to gain experience with efficent data storage and processing for games and simulation, I am creating a program from scratch using JavaFX used for pratice in loading things in chunks and only activating certain areas localised arround the player.
+In order to gain experience with efficient data storage and processing for games and simulation, I am creating a program from scratch using JavaFX used for pratice in loading things in chunks and only activating certain areas localised around the player.
 
-## Status/Versions Compleated
-Currently working on core elements and creating a efficent base to build the rest of the project uppon.
+## Status/Versions Completed
+Currently working on core elements and creating an efficient base to build the rest of the project upon.
 
-## Goals (✅=compleated)
+## Goals (✅=completed)
 - [ ] Installation & library guides
-- [ ] Diffrent tile types (currently under development)
+- [ ] Different tile types (currently under development)
 
 - [ ] Simulation
-  - [X] Seperation of unprocessed chunks, lazy chunks, and entity chunks with auto creataion and removal.
+  - [X] Separation of unprocessed chunks, lazy chunks, and entity chunks with auto creation and removal based on activation and proximity to user.
   - [ ] Agents/Entities
+    - [X] Agent interface class
+    - [X] Basic Entities class for extending
+    - [ ] Collisions between entities
+    - [X] Agent movement during tick
+    - [ ] Chunk restricted movement
+    - [ ] Agent pathing (Status=Random Movement)
   - [ ] Gravity
 
 - [ ] Quality of Life
@@ -22,7 +28,7 @@ Currently working on core elements and creating a efficent base to build the res
     - [X] Xubuntu (Tested/Developed on)
     - [ ] Arch (Untested)
   - [ ] Macos (M1 chip works without color, intel-based untested)
-  - [ ] Windows (Compleatly untested)
+  - [ ] Windows (Completely untested)
 
 # Visual Preview of Latest Version
 ![Screenshot taken of latest version](/src/com/company/ChangeLogData/MostRecentDisplay.png)

@@ -4,10 +4,11 @@ import com.company.tileTypes.GameTile;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 public class TileGame implements Runnable  {
     final static int GAME_WIDTH_IN_CHUNKS = 10;
-    final static short CHUNK_WIDTH_IN_TILES = 20;
+    final static short CHUNK_WIDTH_IN_TILES = 5;
 
     final static int TILES_PER_CHUNK_PER_RANDOM_TICK = 0;//3;
 
@@ -17,8 +18,9 @@ public class TileGame implements Runnable  {
     JFrame gameBoardFrame;
     JTextField t1;
 
-//    int playerX = 3;
-//    int playerY = 3;
+//    Map<Integer[],Entity> entities = new HashMap();
+    ArrayList<Entity> entities = new ArrayList<>();
+
     int playerX = 0;
     int playerY = 0;
 
@@ -27,25 +29,32 @@ public class TileGame implements Runnable  {
         //Run everything in a tick
         while(true){
             try {
-                Thread.sleep(1);
-                int direction = (int) (Math.random()*4D);
+                Thread.sleep(500);
+//                byte direction = (byte) (Math.random()*4D);
+//
+//                switch(direction){
+//                    case 0:
+//                        moveNorth();
+//                        break;
+//                    case 1:
+//                        moveEast();
+//                        break;
+//                    case 2:
+//                        moveSouth();
+//                        break;
+//                    case 3:
+//                        moveWest();
+//                        break;
+//                    default:
+//                        break;
+//                }
 
-                    switch(direction){
-                        case 0:
-                            moveNorth();
-                            break;
-                        case 1:
-                            moveEast();
-                            break;
-                        case 2:
-                            moveSouth();
-                            break;
-                        case 3:
-                            moveWest();
-                            break;
-                        default:
-                            break;
-                    }
+
+                for(Entity entity: entities){
+                    entity.onTick();
+                }
+
+
                 } catch (InterruptedException e) {
 //                throw new RuntimeException(e);
             }
@@ -61,6 +70,11 @@ public class TileGame implements Runnable  {
         chunkDisplayAndController = new TileIsChunk(GAME_WIDTH_IN_CHUNKS, CHUNK_WIDTH_IN_TILES);
         //Generate Chunks
 
+        //Set Statics
+        BasicEntity.setSharedStatics(entities,chunkDisplayAndController);
+        for(int i = 0; i < 50; i++){
+            entities.add(new BasicEntity(i,(int) (Math.random()*(GAME_WIDTH_IN_CHUNKS*CHUNK_WIDTH_IN_TILES-2)),(int) (Math.random()*(GAME_WIDTH_IN_CHUNKS*CHUNK_WIDTH_IN_TILES-2)), Color.BLACK));
+        }
 
         gameBoardFrame = new JFrame("GAME PLAY BOARD");
         t1 = new JTextField("");
@@ -147,15 +161,20 @@ public class TileGame implements Runnable  {
     private void checkAndMoveIfPossible(int newX, int newY){
         //Make sure not out of bounds by checking if chunk exists
         try{
-            if(chunkDisplayAndController.getGameTile(newX, newY).landable){
-                setPlayerTileColor(chunkDisplayAndController.getGameTile(playerX,playerY).getColor());
-    //            setPlayerTileColor(Color.red);
-                playerX = newX;
-                playerY = newY;
-                colorPlayerChunk();//TODO: Make more efficent?
-                setPlayerTileColorTemp(Defaults.PLAYER_COLOR);
+            try{
+                if(chunkDisplayAndController.getGameTile(newX, newY).landable){
+                    setPlayerTileColor(chunkDisplayAndController.getGameTile(playerX,playerY).getColor());
+        //            setPlayerTileColor(Color.red);
+                    playerX = newX;
+                    playerY = newY;
+                    colorPlayerChunk();//TODO: Make more efficent?
+                    setPlayerTileColorTemp(Defaults.PLAYER_COLOR);
+                }
+            }catch(NullPointerException e){
+//                e.printStackTrace();
             }
         }catch(ArrayIndexOutOfBoundsException e){
+//            e.printStackTrace();
 //            System.out.println("Sorry but that space does not exist.");
         }
     }

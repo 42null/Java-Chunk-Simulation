@@ -81,7 +81,11 @@ public class TileIsChunk implements ActionListener {
 
     }
     public GameTile getGameTile(int x, int y){
-        return chunks[(y/chunkWidthInTiles)*gameNumOfTilesWidth+x/chunkWidthInTiles].playTiles[x%chunkWidthInTiles][y%chunkWidthInTiles];
+        try{
+            return chunks[(y/chunkWidthInTiles)*gameNumOfTilesWidth+x/chunkWidthInTiles].playTiles[x%chunkWidthInTiles][y%chunkWidthInTiles];
+        }catch(IndexOutOfBoundsException e){
+            return null;
+        }
     }
 
     public void setGameTileColor(int x, int y, Color newColor){
@@ -217,7 +221,7 @@ public class TileIsChunk implements ActionListener {
         String source = e.getSource().toString();
 //        System.out.println(this.getClass() + "   :   "+source);
         int boxNumber = Integer.parseInt(source.substring("com.company.Tile[".length(),source.indexOf(',')));
-        System.out.println("Manually set chunk '" + boxNumber + "' to lazy processing");
+//        System.out.println("Manually set chunk '" + boxNumber + "' to lazy processing");
 
         Tile selectedButton = tileArray[boxNumber];
 //        System.out.println("X = "+boxNumber % gameNumOfTilesWidth);//X

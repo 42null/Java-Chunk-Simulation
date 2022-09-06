@@ -19,8 +19,7 @@ public class GameTile extends JButton implements TileType {
     public boolean liquid = false;
     public short state = -1;
 
-    public Color defaultColor = new Color(204,9,160); //The Pink Found In Error Textures (https://colornames.org/color/cc09a0)
-
+    public Color defaultColor = Defaults.ERROR_COLOR;
     private Color _color = Defaults.STARTING_COLOR;
 
     public void setColor(Color newColor){//TODO: Make return boolean if changed?
