@@ -47,7 +47,7 @@ public class TileIsChunk implements ActionListener {
             tmpButton.setColor(Defaults.STARTING_COLOR);
             tmpButton.setText(i+"");
             tileArray[i] = tmpButton;
-            chunks[i] = new Chunk(this.chunkWidthInTiles, Color.GREEN);
+            chunks[i] = new Chunk(this.gameNumOfTilesWidth,  this.chunkWidthInTiles, i, Color.GREEN);
         }
 
 
@@ -69,17 +69,19 @@ public class TileIsChunk implements ActionListener {
      * Select a constant number of locations from each entity-processing chunk and call the randomTick method on each selected tile.
      */
     public void runRandomTicks(final int tilesPerChunk){
-        for( int chunkLocationInStorage: entityChunks){
+        for(int chunkLocationInStorage: entityChunks){
             for(int i=0; i<tilesPerChunk; i++){
                 chunks[chunkLocationInStorage].playTiles[(int)Math.round(Math.random()*(this.chunkWidthInTiles-1))][(int)Math.round(Math.random()*(this.chunkWidthInTiles-1))].randomTick();//See if I can just truncate for speed.
             }
         }
     }
 
-
-    public void displayCurrentPlayersChunk(){
-
+    public void tickEntities(){
+        for(int chunkLocationInStorage: entityChunks){
+            chunks[chunkLocationInStorage].tickEntities();
+        }
     }
+
     public GameTile getGameTile(int x, int y){
         try{
             return chunks[(y/chunkWidthInTiles)*gameNumOfTilesWidth+x/chunkWidthInTiles].playTiles[x%chunkWidthInTiles][y%chunkWidthInTiles];
@@ -141,7 +143,7 @@ public class TileIsChunk implements ActionListener {
         }
         recalculateChunkLayers();
 //        System.out.println("Lazy.size = "+lazyChunks.size());
-        updateChunkList(12);
+        updateChunkList(20);
 //        System.out.println("Lazy.size = "+lazyChunks.size());
 
         return returnStatus;
@@ -184,7 +186,11 @@ public class TileIsChunk implements ActionListener {
         return chunks[(y/this.chunkWidthInTiles)*this.gameNumOfTilesWidth+x/this.chunkWidthInTiles];
     }
 
-    public boolean addChunkFromIndex(int x, int y){
+    public Chunk getChunkFromIndex(int index){
+        return chunks[index];
+    }
+
+    public boolean addChunkFromIndex(int x, int y){//TODO: Rename
         try {
 //            System.out.println("x = " + x + ", y = " + y);
             if (this.addChunkToLazyProcessing(tileArray[y * this.gameNumOfTilesWidth + x]) > 2) {

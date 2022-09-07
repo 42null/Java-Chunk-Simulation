@@ -18,9 +18,6 @@ public class TileGame implements Runnable  {
     JFrame gameBoardFrame;
     JTextField t1;
 
-//    Map<Integer[],Entity> entities = new HashMap();
-    ArrayList<Entity> entities = new ArrayList<>();
-
     int playerX = 0;
     int playerY = 0;
 
@@ -29,7 +26,7 @@ public class TileGame implements Runnable  {
         //Run everything in a tick
         while(true){
             try {
-                Thread.sleep(500);
+                Thread.sleep(1000);
 //                byte direction = (byte) (Math.random()*4D);
 //
 //                switch(direction){
@@ -49,32 +46,22 @@ public class TileGame implements Runnable  {
 //                        break;
 //                }
 
-
-                for(Entity entity: entities){
-                    entity.onTick();
-                }
-
-
                 } catch (InterruptedException e) {
 //                throw new RuntimeException(e);
             }
-//            System.out.println("-----------------------------------------Hello from other thread");
             chunkDisplayAndController.runRandomTicks(TILES_PER_CHUNK_PER_RANDOM_TICK);
-//            moveSouth();
-//            System.out.println("-----------------------------------------Hello from other thread END");
+//            chunkDisplayAndController.tickTileElements();
+            System.out.println("Going to tick entities");
+            chunkDisplayAndController.tickEntities();
+
         }
     }
 
     public TileGame(){
         //Create Board Chunks
         chunkDisplayAndController = new TileIsChunk(GAME_WIDTH_IN_CHUNKS, CHUNK_WIDTH_IN_TILES);
+        BasicEntity.setSharedStatics(chunkDisplayAndController);
         //Generate Chunks
-
-        //Set Statics
-        BasicEntity.setSharedStatics(entities,chunkDisplayAndController);
-        for(int i = 0; i < 50; i++){
-            entities.add(new BasicEntity(i,(int) (Math.random()*(GAME_WIDTH_IN_CHUNKS*CHUNK_WIDTH_IN_TILES-2)),(int) (Math.random()*(GAME_WIDTH_IN_CHUNKS*CHUNK_WIDTH_IN_TILES-2)), Color.BLACK));
-        }
 
         gameBoardFrame = new JFrame("GAME PLAY BOARD");
         t1 = new JTextField("");

@@ -3,12 +3,17 @@ package com.company;
 import com.company.tileTypes.GameTile;
 
 import java.awt.*;
+import java.nio.file.FileSystemNotFoundException;
+import java.sql.SQLOutput;
+import java.util.ArrayList;
 
 public class Chunk{
 
     public static final short chunkWidthForDimensions = 15;
 
     GameTile[][] playTiles;
+    //    Map<Integer[],Entity> entities = new HashMap();
+    ArrayList<Entity> entities = new ArrayList<>();
 
     public Chunk(short chunkWidth){
         playTiles = new GameTile[chunkWidth][chunkWidth];
@@ -22,7 +27,7 @@ public class Chunk{
         }
     }
 
-    public Chunk(short chunkWidth, Color setColor){
+    public Chunk(int gameWidthInTiles, short chunkWidth, int chunkNumber, Color setColor){
         playTiles = new GameTile[chunkWidth][chunkWidth];
 
         for(int i = 0; i < playTiles.length; i++){
@@ -32,6 +37,10 @@ public class Chunk{
                 playTiles[i][j].setPreferredSize(new Dimension(chunkWidthForDimensions,chunkWidthForDimensions));
                 playTiles[i][j].setColor(Defaults.STARTING_COLOR);
             }
+        }
+
+        for(int i = 0; i < 5; i++){
+            entities.add(new BasicEntity(i,chunkNumber%gameWidthInTiles+(int)(Math.random()*(chunkWidth-1)),chunkNumber/gameWidthInTiles+(int)(Math.random()*(chunkWidth-1)), Color.BLACK));
         }
         setAllChunkColor(setColor);
     }
@@ -80,8 +89,17 @@ public class Chunk{
             }
         }
     }
+    public void randomTick(){
 
-    public void attemptRandomTick(){
+    }
 
+    public void tickEntities(){
+        for(Entity entity: entities){
+            try{
+                entity.onTick();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 }
