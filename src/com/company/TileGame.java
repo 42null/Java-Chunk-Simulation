@@ -51,7 +51,7 @@ public class TileGame implements Runnable  {
             }
             chunkDisplayAndController.runRandomTicks(TILES_PER_CHUNK_PER_RANDOM_TICK);
 //            chunkDisplayAndController.tickTileElements();
-            System.out.println("Going to tick entities");
+//            System.out.println("Going to tick entities");
             chunkDisplayAndController.tickEntities();
 
         }

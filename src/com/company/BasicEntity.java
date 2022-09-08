@@ -83,7 +83,7 @@ public class BasicEntity implements Entity {
 //        }catch(NullPointerException e){
 ////            e.printStackTrace();
 //        }
-//        _sharedChunks.setGameTileColorTemp(this.getX(), this.getY(), Color.MAGENTA);
+//        _sharedChunks.setGameTileColorTemp(this.getX(), this.getY(), Colorg.MAGENTA);
         _sharedChunks.getGameTile(this.getX(),this.getY()).updateColorInDisplay();
 //        Make sure not out of bounds by checking if chunk exists
         try{

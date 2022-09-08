@@ -39,8 +39,13 @@ public class Chunk{
             }
         }
 
-        for(int i = 0; i < 5; i++){
-            entities.add(new BasicEntity(i,chunkNumber%gameWidthInTiles+(int)(Math.random()*(chunkWidth-1)),chunkNumber/gameWidthInTiles+(int)(Math.random()*(chunkWidth-1)), Color.BLACK));
+        for(int i = 0; i < 3; i++){
+            int x = chunkNumber%gameWidthInTiles*chunkWidth+(int)(Math.random()*(chunkWidth-1));
+            int y = chunkNumber/gameWidthInTiles*chunkWidth+(int)(Math.random()*(chunkWidth-1));
+            System.out.println("x = "+x);
+            System.out.println("y = "+y);
+            System.out.println("gameWidthInTiles = "+gameWidthInTiles);
+            entities.add(new BasicEntity(i,x,y, Color.BLACK));
         }
         setAllChunkColor(setColor);
     }
