@@ -58,8 +58,11 @@ public class UIControls implements ActionListener{
         _controlsArray[1*widthInButtons+1].setText("T");
         _controlsArray[1*widthInButtons+1].setColor(Color.gray);
 
+        _controlsArray[2*widthInButtons+2].setText("R");
+//        _controlsArray[2*widthInButtons+0].setColor(Color.gray);
+
         Font font = new Font("Courier New", 1, 10);
-        _controlsArray[2*widthInButtons+0].setFont(font);
+        _controlsArray[2*widthInButtons+2].setFont(font);
 
         uiFrame.pack();
         uiFrame.setVisible(true);
@@ -113,6 +116,33 @@ public class UIControls implements ActionListener{
     //                } catch (InterruptedException e) {
     //                    throw new RuntimeException(e);
     //                }
+                    switch(direction){
+                        case 0:
+                            game.moveNorth();
+                            break;
+                        case 1:
+                            game.moveEast();
+                            break;
+                        case 2:
+                            game.moveSouth();
+                            break;
+                        case 3:
+                            game.moveWest();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }else if(stringCheck=="R"){
+            for(int j = 100/*(int) Math.random() * 20*/; j>0; j--){
+                int direction = (int) (Math.random()*4D);
+                for(int i = 5/*(int) Math.random() * 20*/; i>0; i--){
+                    //                try {
+                    //                    Thread.sleep(1000);
+                    //                } catch (InterruptedException e) {
+                    //                    throw new RuntimeException(e);
+                    //                }
                     switch(direction){
                         case 0:
                             game.moveNorth();

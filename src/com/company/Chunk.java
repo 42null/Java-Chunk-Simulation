@@ -6,6 +6,8 @@ import java.awt.*;
 import java.nio.file.FileSystemNotFoundException;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Chunk{
 
@@ -99,9 +101,18 @@ public class Chunk{
     }
 
     public void tickEntities(){
-        for(Entity entity: entities){
+//        for (Iterator<Map.Entry<Entity>> i = entities.iterator(); i.hasNext();) {
+//            Map.Entry<String,Integer> entry = i.next();
+//            entry.setValue(entry.getValue() - 20); // update via the Map.Entry
+//            if (entry.getValue() <= 0) {
+//                i.remove(); // remove via the iterator
+//            }
+//        }
+
+//        for(Entity entity: entities){
+        for(int i=0; i<entities.size();i++){
             try{
-                entity.onTick();
+                entities.get(i).onTick();
             }catch(Exception e){
                 e.printStackTrace();
             }

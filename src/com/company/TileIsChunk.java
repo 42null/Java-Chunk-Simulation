@@ -71,6 +71,11 @@ public class TileIsChunk implements ActionListener {
     public void runRandomTicks(final int tilesPerChunk){
         for(int chunkLocationInStorage: entityChunks){
             for(int i=0; i<tilesPerChunk; i++){
+                if(chunks[chunkLocationInStorage].entities.size() == 0){
+                    chunks[chunkLocationInStorage].setAllChunkColor(Color.GRAY);
+                }else{
+                    chunks[chunkLocationInStorage].setAllChunkColor(Color.ORANGE);
+                }
                 chunks[chunkLocationInStorage].playTiles[(int)Math.round(Math.random()*(this.chunkWidthInTiles-1))][(int)Math.round(Math.random()*(this.chunkWidthInTiles-1))].randomTick();//See if I can just truncate for speed.
             }
         }
@@ -143,7 +148,7 @@ public class TileIsChunk implements ActionListener {
         }
         recalculateChunkLayers();
 //        System.out.println("Lazy.size = "+lazyChunks.size());
-        updateChunkList(20);
+        updateChunkList(99);
 //        System.out.println("Lazy.size = "+lazyChunks.size());
 
         return returnStatus;
@@ -178,10 +183,22 @@ public class TileIsChunk implements ActionListener {
         }
     }
 
+    public boolean moveEntityToChunk(Entity entity, int existingChunkNum, int newChunkNum){
+        try{
+            this.chunks[existingChunkNum].entities.remove(entity);//TODO: Move to look at entity chunks
+            this.chunks[newChunkNum].entities.add(entity);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return true;
+    }
+
     public int[] getChunkNumXYFromGameXY(int x, int y){
         return new int[] {x/chunkWidthInTiles,y/chunkWidthInTiles};
     }
-
+    public int getChunkIndexFromXY(int x, int y){
+        return (y/this.chunkWidthInTiles)*this.gameNumOfTilesWidth+x/this.chunkWidthInTiles;
+    }
     public Chunk getChunk(int x, int y){
         return chunks[(y/this.chunkWidthInTiles)*this.gameNumOfTilesWidth+x/this.chunkWidthInTiles];
     }
