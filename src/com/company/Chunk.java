@@ -41,7 +41,7 @@ public class Chunk{
             }
         }
 
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < 1; i++){
             int x = chunkNumber%gameWidthInTiles*chunkWidth+(int)(Math.random()*(chunkWidth-1));
             int y = chunkNumber/gameWidthInTiles*chunkWidth+(int)(Math.random()*(chunkWidth-1));
             System.out.println("x = "+x);

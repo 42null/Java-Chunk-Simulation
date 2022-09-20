@@ -72,7 +72,7 @@ public class TileIsChunk implements ActionListener {
         for(int chunkLocationInStorage: entityChunks){
             for(int i=0; i<tilesPerChunk; i++){
                 if(chunks[chunkLocationInStorage].entities.size() == 0){
-                    chunks[chunkLocationInStorage].setAllChunkColor(Color.GRAY);
+//                    chunks[chunkLocationInStorage].setAllChunkColor(Color.GRAY);
                 }else{
                     chunks[chunkLocationInStorage].setAllChunkColor(Color.ORANGE);
                 }
@@ -148,7 +148,7 @@ public class TileIsChunk implements ActionListener {
         }
         recalculateChunkLayers();
 //        System.out.println("Lazy.size = "+lazyChunks.size());
-        updateChunkList(99);
+        updateChunkList(9);
 //        System.out.println("Lazy.size = "+lazyChunks.size());
 
         return returnStatus;

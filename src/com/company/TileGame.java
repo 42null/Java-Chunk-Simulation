@@ -10,7 +10,7 @@ public class TileGame implements Runnable  {
     final static int GAME_WIDTH_IN_CHUNKS = 10;
     final static short CHUNK_WIDTH_IN_TILES = 5;
 
-    final static int TILES_PER_CHUNK_PER_RANDOM_TICK = 1;//3;
+    final static int TILES_PER_CHUNK_PER_RANDOM_TICK = 0;//3;
 
     TileIsChunk chunkDisplayAndController;
     GameTile[][] gameView;
