@@ -16,7 +16,7 @@ import static com.company.TileGame.GAME_WIDTH_IN_CHUNKS;
 
 public class Chunk implements ActionListener{
 
-    public static final short chunkWidthForDimensions = 15;
+    public static final short chunkWidthForDimensions = 5;
 
     public int chunkNumber;
 
@@ -142,10 +142,12 @@ public class Chunk implements ActionListener{
         System.out.println("Y = "+boxY);
 //        boxX = boxX/(CHUNK_WIDTH_IN_TILES);
 //        boxY = boxY/(CHUNK_WIDTH_IN_TILES);
-        System.out.println("bX= "+boxX);
-        System.out.println("bY= "+boxY);
-        entities.add(new BasicEntity((int)(Math.random()*100), boxX ,boxY, Color.BLACK));
-
+//        System.out.println("bX= "+boxX);
+//        System.out.println("bY= "+boxY);
+        for(int i = 0; i < 100; i++){
+            entities.add(new BasicEntity((int)(Math.random()*100), boxX,boxY, Color.BLACK));
+        }
+        playTiles[boxX%CHUNK_WIDTH_IN_TILES][boxY%CHUNK_WIDTH_IN_TILES].setBackground(Color.RED);//TODO: Make method for adding or override
         System.out.println(">>"+entities.size());
         System.out.println("{{{{{{{"+entities.size());
     }

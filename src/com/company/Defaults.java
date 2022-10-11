@@ -11,10 +11,11 @@ public class Defaults {
     public static final Color PLAYER_COLOR = Color.BLUE;
 
 
-    public static final short MS_BETWEEN_TICKS = 1512;//256;
+    public static final short MS_BETWEEN_TICKS = 10;//512;//256;
 
-    public static final short chunksToKeepAtATime = 100;
-    public static final short entitesPerChunkGenerate = 1;
+    public static final short chunksToKeepAtATime = 9999;
+    public static final boolean entitiesLoadChunks = true;
+    public static final short entitesPerChunkGenerate = 0;
 
     /*
         0 = normal;

@@ -19,6 +19,7 @@ public class TileIsChunk implements ActionListener {
 
     LinkedList<Integer> lazyChunks = new LinkedList<>();
     LinkedList<Integer> entityChunks = new LinkedList<>();
+    LinkedList<Integer> addChunksToEntityNextTick = new LinkedList<>();
 
     Tile[] tileArray;
     Chunk[] chunks;
@@ -84,6 +85,11 @@ public class TileIsChunk implements ActionListener {
     }
 
     public void tickEntities(){
+
+        for(int chunkNumber : addChunksToEntityNextTick){
+            addChunkToEntityProcessing(tileArray[chunkNumber]);
+        }
+        addChunksToEntityNextTick = new LinkedList<>();
         for(int chunkLocationInStorage: entityChunks){
             chunks[chunkLocationInStorage].tickEntities();
         }
@@ -158,7 +164,7 @@ public class TileIsChunk implements ActionListener {
         return returnStatus;
     }
 
-    private void addChunkToEntityProcessing(Tile tile){
+    public void addChunkToEntityProcessing(Tile tile){
         Integer valueToAdd = Integer.valueOf(tile.getText());
         try{
             if(!entityChunks.removeFirstOccurrence(valueToAdd)){
@@ -169,6 +175,9 @@ public class TileIsChunk implements ActionListener {
         }catch(ArrayIndexOutOfBoundsException e){
 //            e.printStackTrace();
         }
+    }
+    public void addChunkToEntityProcessingNextTick(int chunkNumber){
+        this.addChunksToEntityNextTick.add(chunkNumber);
     }
 
     private void removeChunkFromLazyProcessing(Tile tile){

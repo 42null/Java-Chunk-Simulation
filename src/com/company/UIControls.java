@@ -55,7 +55,7 @@ public class UIControls implements ActionListener{
         _controlsArray[2*widthInButtons+1].setColor(Color.cyan);
         _controlsArray[1*widthInButtons+2].setText("->");
         _controlsArray[1*widthInButtons+2].setColor(Color.cyan);
-        _controlsArray[1*widthInButtons+1].setText("T");
+        _controlsArray[1*widthInButtons+1].setText("T100");
         _controlsArray[1*widthInButtons+1].setColor(Color.gray);
 
         _controlsArray[2*widthInButtons+0].setText("A");
@@ -137,6 +137,15 @@ public class UIControls implements ActionListener{
             game.chunkDisplayAndController.recalculateChunkLayers();
         }else if(stringCheck=="T"){
             game.chunkDisplayAndController.tickEntities();
+        }else if(stringCheck=="T100"){
+            for(int i = 0; i < 100; i++){
+                game.chunkDisplayAndController.tickEntities();
+                try {
+                    Thread.sleep(Defaults.MS_BETWEEN_TICKS);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }else{
             return false;
         }

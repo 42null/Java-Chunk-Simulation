@@ -14,6 +14,8 @@ Currently working on core elements and creating an efficient base to build the r
     - [X] Agent interface class
     - [X] Basic Entities class for extending
     - [ ] Collisions between entities
+      - [X] Entities not moving onto occupied spaces.
+      - [ ] Velocity and pressures
     - [X] Agent movement during tick
     - [X] Chunk restricted movement
     - [ ] Agent pathing (Status=Random Movement)
@@ -29,7 +31,7 @@ Currently working on core elements and creating an efficient base to build the r
     - [ ] Debian (Untested)
     - [X] Xubuntu (Tested/Developed on)
     - [ ] Arch (Untested)
-  - [ ] Macos (M1 chip works without color, intel-based untested)
+  - [ ] MacOS (M1 chip works without color, intel-based untested)
   - [ ] Windows (Completely untested)
 
 # Visual Preview of Latest Version

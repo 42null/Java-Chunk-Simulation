@@ -8,8 +8,8 @@ import java.awt.event.ActionListener;
 import java.util.*;
 
 public class TileGame implements Runnable  {
-    final static int GAME_WIDTH_IN_CHUNKS = 10;
-    final static short CHUNK_WIDTH_IN_TILES = 2;
+    final static int GAME_WIDTH_IN_CHUNKS = 24;
+    final static short CHUNK_WIDTH_IN_TILES = 6;
 
     final static int TILES_PER_CHUNK_PER_RANDOM_TICK = 0;//3;
 
@@ -56,7 +56,11 @@ public class TileGame implements Runnable  {
             chunkDisplayAndController.runRandomTicks(TILES_PER_CHUNK_PER_RANDOM_TICK);
 //            chunkDisplayAndController.tickTileElements();
 //            System.out.println("Going to tick entities");
-            chunkDisplayAndController.tickEntities();
+            try{
+                chunkDisplayAndController.tickEntities();
+            }catch(ConcurrentModificationException e){
+                e.printStackTrace();
+            }
         }
     }
 
