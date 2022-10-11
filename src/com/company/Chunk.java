@@ -3,21 +3,29 @@ package com.company;
 import com.company.tileTypes.GameTile;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.nio.file.FileSystemNotFoundException;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
+import java.awt.event.ActionEvent;
 
-public class Chunk{
+import static com.company.TileGame.CHUNK_WIDTH_IN_TILES;
+import static com.company.TileGame.GAME_WIDTH_IN_CHUNKS;
+
+public class Chunk implements ActionListener{
 
     public static final short chunkWidthForDimensions = 15;
+
+    public int chunkNumber;
 
     GameTile[][] playTiles;
     //    Map<Integer[],Entity> entities = new HashMap();
     ArrayList<Entity> entities = new ArrayList<>();
 
     public Chunk(short chunkWidth){
+        this.chunkNumber = -1;
         playTiles = new GameTile[chunkWidth][chunkWidth];
         for(int i = 0; i < playTiles.length; i++){
             for (int j = 0; j < playTiles[0].length; j++){//Switch to playTiles.length for efficiency as always square
@@ -25,11 +33,14 @@ public class Chunk{
                 playTiles[j][j] = new GameTile("ij");
                 playTiles[i][j].setPreferredSize(new Dimension(chunkWidthForDimensions,chunkWidthForDimensions));
                 playTiles[i][j].setColor(Defaults.STARTING_COLOR);
+                playTiles[i][j].addActionListener(this);
+                playTiles[i][j].setBackground(Color.RED);
             }
         }
     }
 
     public Chunk(int gameWidthInTiles, short chunkWidth, int chunkNumber, Color setColor){
+        this.chunkNumber = chunkNumber;
         playTiles = new GameTile[chunkWidth][chunkWidth];
 
         for(int i = 0; i < playTiles.length; i++){
@@ -41,9 +52,9 @@ public class Chunk{
             }
         }
 
-        for(int i = 0; i < 1; i++){
-            int x = chunkNumber%gameWidthInTiles*chunkWidth+(int)(Math.random()*(chunkWidth-1));
-            int y = chunkNumber/gameWidthInTiles*chunkWidth+(int)(Math.random()*(chunkWidth-1));
+        for(int i = 0; i < Defaults.entitesPerChunkGenerate; i++){
+            int x = chunkNumber%gameWidthInTiles*chunkWidth+(int)(Math.random()*(chunkWidth));
+            int y = chunkNumber/gameWidthInTiles*chunkWidth+(int)(Math.random()*(chunkWidth));
             System.out.println("x = "+x);
             System.out.println("y = "+y);
             System.out.println("gameWidthInTiles = "+gameWidthInTiles);
@@ -118,4 +129,25 @@ public class Chunk{
             }
         }
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String source = e.getSource().toString();
+        System.out.println(this.getClass() + "   :   "+source);
+        String sourceShortened = source.substring("com.company.tileTypes.GameTile[1,".length(),source.indexOf('x'));
+        int boxX = Integer.parseInt(sourceShortened.substring(0,sourceShortened.indexOf(',')))/this.chunkWidthForDimensions;
+        int boxY = Integer.parseInt(sourceShortened.substring(sourceShortened.indexOf(',')+1,sourceShortened.lastIndexOf(',')))/this.chunkWidthForDimensions;
+        System.out.println("-------------");
+        System.out.println("X = "+boxX);
+        System.out.println("Y = "+boxY);
+//        boxX = boxX/(CHUNK_WIDTH_IN_TILES);
+//        boxY = boxY/(CHUNK_WIDTH_IN_TILES);
+        System.out.println("bX= "+boxX);
+        System.out.println("bY= "+boxY);
+        entities.add(new BasicEntity((int)(Math.random()*100), boxX ,boxY, Color.BLACK));
+
+        System.out.println(">>"+entities.size());
+        System.out.println("{{{{{{{"+entities.size());
+    }
+
 }

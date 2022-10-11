@@ -58,8 +58,10 @@ public class UIControls implements ActionListener{
         _controlsArray[1*widthInButtons+1].setText("T");
         _controlsArray[1*widthInButtons+1].setColor(Color.gray);
 
+        _controlsArray[2*widthInButtons+0].setText("A");
         _controlsArray[2*widthInButtons+2].setText("R");
-//        _controlsArray[2*widthInButtons+0].setColor(Color.gray);
+        _controlsArray[0*widthInButtons+2].setText("T");
+
 
         Font font = new Font("Courier New", 1, 10);
         _controlsArray[2*widthInButtons+2].setFont(font);
@@ -85,55 +87,19 @@ public class UIControls implements ActionListener{
     private boolean checkIfSpecialButton(String stringCheck){
         if(stringCheck=="<-"){
             game.moveWest();
-            _controlsArray[2*widthInButtons+0].setText(game.getPlayerX()+","+game.getPlayerY());
+            _controlsArray[0*widthInButtons+0].setText(game.getPlayerX()+","+game.getPlayerY());
 
         }else if(stringCheck=="^") {
             game.moveNorth();
-            _controlsArray[2*widthInButtons+0].setText(game.getPlayerX()+","+game.getPlayerY());
+            _controlsArray[0*widthInButtons+0].setText(game.getPlayerX()+","+game.getPlayerY());
 
         }else if(stringCheck=="v") {
             game.moveSouth();
-            _controlsArray[2*widthInButtons+0].setText(game.getPlayerX()+","+game.getPlayerY());
+            _controlsArray[0*widthInButtons+0].setText(game.getPlayerX()+","+game.getPlayerY());
 
         }else if(stringCheck=="->") {
             game.moveEast();
-            _controlsArray[2*widthInButtons+0].setText(game.getPlayerX()+","+game.getPlayerY());
-
-        }else if(stringCheck=="T"){
-//            game.chunkDisplayAndController.updateChunkList(10);
-//            game.chunkDisplayAndController.recalculateChunkLayers();
-//            recalculateChunkLayers();
-//            TileGame.spawnAnt();
-//            game.setPlayerTileColor(Defaults.PLAYER_COLOR);
-
-            game.playerX = game.CHUNK_WIDTH_IN_TILES*game.GAME_WIDTH_IN_CHUNKS/2;
-            game.playerY = game.CHUNK_WIDTH_IN_TILES*game.GAME_WIDTH_IN_CHUNKS/2;
-            for(int j = 5/*(int) Math.random() * 20*/; j>0; j--){
-                int direction = (int) (Math.random()*4D);
-                for(int i = 5/*(int) Math.random() * 20*/; i>0; i--){
-    //                try {
-    //                    Thread.sleep(1000);
-    //                } catch (InterruptedException e) {
-    //                    throw new RuntimeException(e);
-    //                }
-                    switch(direction){
-                        case 0:
-                            game.moveNorth();
-                            break;
-                        case 1:
-                            game.moveEast();
-                            break;
-                        case 2:
-                            game.moveSouth();
-                            break;
-                        case 3:
-                            game.moveWest();
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
+            _controlsArray[0*widthInButtons+0].setText(game.getPlayerX()+","+game.getPlayerY());
         }else if(stringCheck=="R"){
             for(int j = 100/*(int) Math.random() * 20*/; j>0; j--){
                 int direction = (int) (Math.random()*4D);
@@ -161,6 +127,16 @@ public class UIControls implements ActionListener{
                     }
                 }
             }
+        }else if(stringCheck=="A"){
+            for(int i=0; i < TileGame.GAME_WIDTH_IN_CHUNKS; i++){
+                for(int j=0; j < TileGame.GAME_WIDTH_IN_CHUNKS; j++){
+                    game.chunkDisplayAndController.addChunkFromIndex(i,j);
+//                    game.chunkDisplayAndController.entityChunks.add(i*TileGame.GAME_WIDTH_IN_CHUNKS+j);
+                }
+            }
+            game.chunkDisplayAndController.recalculateChunkLayers();
+        }else if(stringCheck=="T"){
+            game.chunkDisplayAndController.tickEntities();
         }else{
             return false;
         }

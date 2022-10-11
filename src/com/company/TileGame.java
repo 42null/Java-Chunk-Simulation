@@ -4,11 +4,12 @@ import com.company.tileTypes.GameTile;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.*;
 
 public class TileGame implements Runnable  {
     final static int GAME_WIDTH_IN_CHUNKS = 10;
-    final static short CHUNK_WIDTH_IN_TILES = 5;
+    final static short CHUNK_WIDTH_IN_TILES = 2;
 
     final static int TILES_PER_CHUNK_PER_RANDOM_TICK = 0;//3;
 
@@ -18,6 +19,8 @@ public class TileGame implements Runnable  {
     JFrame gameBoardFrame;
     JTextField t1;
 
+    private short msBetweenTicks = Defaults.MS_BETWEEN_TICKS;
+
     int playerX = 0;
     int playerY = 0;
 
@@ -26,7 +29,7 @@ public class TileGame implements Runnable  {
         //Run everything in a tick
         while(true){
             try {
-                Thread.sleep(1000);
+                Thread.sleep(this.msBetweenTicks);
 //                byte direction = (byte) (Math.random()*4D);
 //
 //                switch(direction){
@@ -47,13 +50,13 @@ public class TileGame implements Runnable  {
 //                }
 
                 } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-            }
+                    throw new RuntimeException(e);
+                }
+
             chunkDisplayAndController.runRandomTicks(TILES_PER_CHUNK_PER_RANDOM_TICK);
 //            chunkDisplayAndController.tickTileElements();
 //            System.out.println("Going to tick entities");
             chunkDisplayAndController.tickEntities();
-
         }
     }
 
@@ -74,8 +77,12 @@ public class TileGame implements Runnable  {
                 for(int largeChunkX=0; largeChunkX<GAME_WIDTH_IN_CHUNKS; largeChunkX++){
                     for(int innerChunkX=0; innerChunkX<CHUNK_WIDTH_IN_TILES; innerChunkX++){
                         Chunk chunk = chunkDisplayAndController.chunks[largeChunkY*GAME_WIDTH_IN_CHUNKS+largeChunkX];
-                        gameView[largeChunkY*CHUNK_WIDTH_IN_TILES+innerChunkY][largeChunkX*CHUNK_WIDTH_IN_TILES+innerChunkX] = chunk.getTile(innerChunkX,innerChunkY);
-                        gameBoardFrame.add(gameView[largeChunkY*CHUNK_WIDTH_IN_TILES+innerChunkY][largeChunkX*CHUNK_WIDTH_IN_TILES+innerChunkX]);
+//                        gameView[largeChunkY*CHUNK_WIDTH_IN_TILES+innerChunkY][largeChunkX*CHUNK_WIDTH_IN_TILES+innerChunkX] = chunk.getTile(innerChunkX,innerChunkY);
+//                        gameBoardFrame.add(gameView[largeChunkY*CHUNK_WIDTH_IN_TILES+innerChunkY][largeChunkX*CHUNK_WIDTH_IN_TILES+innerChunkX]);
+                        int gameViewX = largeChunkY*CHUNK_WIDTH_IN_TILES+innerChunkY, gameViewY = largeChunkX*CHUNK_WIDTH_IN_TILES+innerChunkX;
+                        gameView[gameViewX][gameViewY] = chunk.getTile(innerChunkX,innerChunkY);
+                        gameBoardFrame.add(gameView[gameViewX][gameViewY]);
+                        gameView[gameViewX][gameViewY].addActionListener(chunk);
                     }
                 }
             }
@@ -86,6 +93,8 @@ public class TileGame implements Runnable  {
         System.out.println("gameView.length[0] = "+gameView[0].length);
         System.out.println("gameView[][].class = "+gameView[0][0].getClass());
 
+
+        
 //        for(int i = 0; i< gameView.length; i++){
 //            for(int j = 0; j< gameView[0].length; j++){
 ////                gameView[i][j] = new GameTile(i*gameView.length+j+"");

@@ -1,6 +1,7 @@
 package com.company.tileTypes;
 
 import com.company.Defaults;
+import com.company.Tile;
 import com.company.tileTypes.TileType;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
@@ -9,8 +10,10 @@ import javafx.scene.input.MouseEvent;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class GameTile extends JButton implements TileType {
+public class GameTile extends JButton {
 
     public char[] tileID = new char[2];//TODO: Just Do GetClass?
 
@@ -30,7 +33,7 @@ public class GameTile extends JButton implements TileType {
 
     public GameTile(String name_) {
         super.setName(name_);
-        this.setName(name);
+        this.setName(name_);
     }
 
     public boolean tick(){
@@ -48,42 +51,6 @@ public class GameTile extends JButton implements TileType {
 
     public void updateColorInDisplay(){
         this.setBackground(this._color);
-    }
-
-    public void leftClick(){
-//        _toggleStageSelected++;
-//        if(_toggleStageSelected>2)
-//            _toggleStageSelected=0;
-//
-//        switch(_toggleStageSelected){
-//            case(0):
-//                _color = Defaults.STARTING_COLOR;
-//                break;
-//            case(1):
-//                _color = Defaults.FIRSTCLICK_LEFT;
-//                break;
-//            case(2):
-//                _color = Defaults.FIRSTCLICK_RIGHT;
-//                break;
-//        }
-    }
-    public void rightClick(){
-//        _toggleStageSelected++;
-//        if(_toggleStageSelected>2)
-//            _toggleStageSelected=0;
-//
-//        switch(_toggleStageSelected){
-//            case(0):
-//                _color = Defaults.STARTING_COLOR;
-//                break;
-//            case(1):
-//                _color = Defaults.FIRSTCLICK_LEFT;
-//                break;
-//            case(2):
-//                _color = Defaults.FIRSTCLICK_RIGHT;
-//                break;
-//        }
-//        this.setColor(_color);
     }
 
 }

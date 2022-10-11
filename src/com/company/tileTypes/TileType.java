@@ -1,8 +1,9 @@
 package com.company.tileTypes;
 
 import java.awt.Color;
+import java.awt.event.ActionListener;
 
-public interface TileType {
+public interface TileType extends ActionListener {
     /**
      * tileID controls what tile type it is. Each unique tile type is the first value, and the second encodes any special information about it.
      */

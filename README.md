@@ -15,12 +15,14 @@ Currently working on core elements and creating an efficient base to build the r
     - [X] Basic Entities class for extending
     - [ ] Collisions between entities
     - [X] Agent movement during tick
-    - [ ] Chunk restricted movement
+    - [X] Chunk restricted movement
     - [ ] Agent pathing (Status=Random Movement)
   - [ ] Gravity
 
 - [ ] Quality of Life
   - [ ] Change from button based control to keypress control
+  - [ ] Level Creator Mode
+    - [ ] Add spawn control via new selector palate
 
 - [ ] OS compatibility
   - [ ] Linux

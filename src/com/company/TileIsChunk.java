@@ -74,7 +74,9 @@ public class TileIsChunk implements ActionListener {
                 if(chunks[chunkLocationInStorage].entities.size() == 0){
 //                    chunks[chunkLocationInStorage].setAllChunkColor(Color.GRAY);
                 }else{
-                    chunks[chunkLocationInStorage].setAllChunkColor(Color.ORANGE);
+                    if(Defaults.DISPLAY_MODE == 1){
+                        chunks[chunkLocationInStorage].setAllChunkColor(Color.ORANGE);
+                    }
                 }
                 chunks[chunkLocationInStorage].playTiles[(int)Math.round(Math.random()*(this.chunkWidthInTiles-1))][(int)Math.round(Math.random()*(this.chunkWidthInTiles-1))].randomTick();//See if I can just truncate for speed.
             }
@@ -139,8 +141,10 @@ public class TileIsChunk implements ActionListener {
             if(returnStatus==4){
 //                chunks[valueToAdd].setAllChunkColor(Color.orange);
             }else{
-                chunks[valueToAdd].setAllChunkColor(Color.orange);
                 tile.setColor(Color.orange);
+                if(Defaults.DISPLAY_MODE == 1){
+                    chunks[valueToAdd].setAllChunkColor(Color.orange);
+                }
             }
         }catch(ArrayIndexOutOfBoundsException e){
 //            e.printStackTrace();
@@ -148,7 +152,7 @@ public class TileIsChunk implements ActionListener {
         }
         recalculateChunkLayers();
 //        System.out.println("Lazy.size = "+lazyChunks.size());
-        updateChunkList(9);
+        updateChunkList(Defaults.chunksToKeepAtATime);
 //        System.out.println("Lazy.size = "+lazyChunks.size());
 
         return returnStatus;
@@ -171,7 +175,9 @@ public class TileIsChunk implements ActionListener {
         int tileNum = Integer.parseInt(tile.getText());
         if(lazyChunks.removeFirstOccurrence(tileNum)){
             tile.setColor(Color.pink);
-            chunks[tileNum].setAllChunkColor(Color.pink);
+            if(Defaults.DISPLAY_MODE == 1){
+                chunks[tileNum].setAllChunkColor(Color.pink);
+            }
 //            System.out.println("Successfully removed chunk from lazy");
         }else{
 //            System.out.println("Attempted remove from lazy processing did not work");
@@ -179,7 +185,9 @@ public class TileIsChunk implements ActionListener {
         if(entityChunks.removeFirstOccurrence(tileNum)){
             tile.setColor(Color.pink);
 //            System.out.println("Successfully removed chunk from entity");
-            chunks[tileNum].setAllChunkColor(Color.pink);
+            if(Defaults.DISPLAY_MODE == 1){
+                chunks[tileNum].setAllChunkColor(Color.pink);
+            }
         }
     }
 
