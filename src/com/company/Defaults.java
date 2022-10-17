@@ -15,6 +15,7 @@ public class Defaults {
 
     public static final short chunksToKeepAtATime = 9999;
     public static final boolean entitiesLoadChunks = true;
+    public static final boolean entitiesUnloadChunks = true;
     public static final short entitesPerChunkGenerate = 0;
 
     /*

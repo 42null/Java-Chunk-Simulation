@@ -91,6 +91,7 @@ public class Chunk implements ActionListener{
                     playTiles[row][colum].getColor()==Color.orange ||
                     playTiles[row][colum].getColor()==Color.yellow ||
                     playTiles[row][colum].getColor()==Color.pink ||
+                    playTiles[row][colum].getColor()==Color.cyan ||
                     playTiles[row][colum].getColor()==Color.blue ||
                     playTiles[row][colum].getColor()==Color.green){
                     playTiles[row][colum].setColor(newColor);
@@ -111,7 +112,11 @@ public class Chunk implements ActionListener{
 
     }
 
-    public void tickEntities(){
+    /**
+     * Ticks all entities within the chunk
+     * @return true if the chunk contains o entities
+     */
+    public boolean tickEntities(){
 //        for (Iterator<Map.Entry<Entity>> i = entities.iterator(); i.hasNext();) {
 //            Map.Entry<String,Integer> entry = i.next();
 //            entry.setValue(entry.getValue() - 20); // update via the Map.Entry
@@ -121,12 +126,18 @@ public class Chunk implements ActionListener{
 //        }
 
 //        for(Entity entity: entities){
+
         for(int i=0; i<entities.size();i++){
             try{
                 entities.get(i).onTick();
             }catch(Exception e){
                 e.printStackTrace();
             }
+        }
+        if(entities.size()==0){
+            return true;
+        }else{
+            return false;
         }
     }
 

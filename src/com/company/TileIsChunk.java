@@ -91,7 +91,9 @@ public class TileIsChunk implements ActionListener {
         }
         addChunksToEntityNextTick = new LinkedList<>();
         for(int chunkLocationInStorage: entityChunks){
-            chunks[chunkLocationInStorage].tickEntities();
+            if(chunks[chunkLocationInStorage].tickEntities() && Defaults.entitiesUnloadChunks){
+                removeChunkFromEntityProcessing(chunkLocationInStorage);
+            }
         }
     }
 
@@ -200,6 +202,16 @@ public class TileIsChunk implements ActionListener {
         }
     }
 
+    private void removeChunkFromEntityProcessing(int chunkNumber){
+        Tile tile = tileArray[chunkNumber];
+        if(entityChunks.removeFirstOccurrence(chunkNumber)){
+            tile.setColor(Color.orange);
+//            System.out.println("Successfully removed chunk from entity");
+            if(Defaults.DISPLAY_MODE == 1){
+                chunks[chunkNumber].setAllChunkColor(Color.orange);
+            }
+        }
+    }
     public boolean moveEntityToChunk(Entity entity, int existingChunkNum, int newChunkNum){
         try{
             this.chunks[existingChunkNum].entities.remove(entity);//TODO: Move to look at entity chunks
