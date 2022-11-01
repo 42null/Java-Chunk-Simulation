@@ -1,5 +1,6 @@
 package com.company;
 
+import com.company.entities.Entity;
 import com.company.tileTypes.GameTile;
 
 import javax.swing.*;
@@ -17,9 +18,9 @@ public class TileIsChunk implements ActionListener {
 
     JTextField t1;
 
-    LinkedList<Integer> lazyChunks = new LinkedList<>();
-    LinkedList<Integer> entityChunks = new LinkedList<>();
-    LinkedList<Integer> addChunksToEntityNextTick = new LinkedList<>();
+    private LinkedList<Integer> lazyChunks = new LinkedList<>();
+    public LinkedList<Integer> entityChunks = new LinkedList<>();//TODO: Set to getters
+    private LinkedList<Integer> addChunksToEntityNextTick = new LinkedList<>();
 
     Tile[] tileArray;
     Chunk[] chunks;

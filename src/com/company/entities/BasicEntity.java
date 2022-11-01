@@ -1,4 +1,7 @@
-package com.company;
+package com.company.entities;
+
+import com.company.Defaults;
+import com.company.TileIsChunk;
 
 import java.awt.*;
 
@@ -14,7 +17,7 @@ public class BasicEntity implements Entity {
     private static boolean showCollisions = true;
 
 //    static void setSharedStatics(ArrayList<Entity> oneTimeSet, TileIsChunk oneTimeSet2){//TODO: Make more secure and come up with better names
-    static void setSharedStatics(TileIsChunk oneTimeSet2){//TODO: Make more secure and come up with better names
+    public static void setSharedStatics(TileIsChunk oneTimeSet2){//TODO: Make more secure and come up with better names
         if(_sharedChunks == null){
             _sharedChunks = oneTimeSet2;
         }

@@ -1,10 +1,10 @@
 package com.company;
 
+import com.company.entities.BasicEntity;
 import com.company.tileTypes.GameTile;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.*;
 
 public class TileGame implements Runnable  {

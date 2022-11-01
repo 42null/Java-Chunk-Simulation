@@ -1,18 +1,15 @@
 package com.company;
 
+import com.company.entities.BasicEntity;
+import com.company.entities.Entity;
 import com.company.tileTypes.GameTile;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.nio.file.FileSystemNotFoundException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
 import java.awt.event.ActionEvent;
 
 import static com.company.TileGame.CHUNK_WIDTH_IN_TILES;
-import static com.company.TileGame.GAME_WIDTH_IN_CHUNKS;
 
 public class Chunk implements ActionListener{
 
@@ -22,7 +19,7 @@ public class Chunk implements ActionListener{
 
     GameTile[][] playTiles;
     //    Map<Integer[],Entity> entities = new HashMap();
-    ArrayList<Entity> entities = new ArrayList<>();
+    public ArrayList<Entity> entities = new ArrayList<>();//TODO: Make not public
 
     public Chunk(short chunkWidth){
         this.chunkNumber = -1;
